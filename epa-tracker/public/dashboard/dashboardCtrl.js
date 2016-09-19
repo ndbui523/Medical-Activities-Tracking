@@ -64,7 +64,6 @@ angular.module('appControllers').controller('dashboardCtrl', ['$scope',function(
                 name: 'Entrustable',
                 y: ($scope.graphData.Mastery4.length/13)*100,
                 //drilldown: 'Entrustable'
-            }, {
             }]
         }],
     });
