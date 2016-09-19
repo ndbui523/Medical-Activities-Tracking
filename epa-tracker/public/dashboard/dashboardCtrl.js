@@ -67,28 +67,9 @@ angular.module('appControllers').controller('dashboardCtrl', ['$scope',function(
             }, {
             }]
         }],
-        /*drilldown: {
-            series: [{
-                name: 'Pre Entrustable',
-                id: 'Pre Entrustable',
-                data: $scope.graphData.Mastery1
-            }, {
-                name: 'Mastery Level 2',
-                id: 'Level 2',
-                data: $scope.graphData.Mastery2
-            }, {
-                name: 'Mastery Level 3',
-                id: 'Level 3',
-                data: $scope.graphData.Mastery3
-            }, {
-                name: 'Entrustable',
-                id: 'Entrustable',
-                data: $scope.graphData.Mastery4
-            }]
-        }*/
     });
     // Apply the theme
-    highcharts.setOptions(Highcharts.theme);
+    Highcharts.setOptions(Highcharts.theme);
 });
 
 }]);

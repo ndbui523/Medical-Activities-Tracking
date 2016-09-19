@@ -10,7 +10,10 @@ myApp.config(['$routeProvider', function($routeProvider) {
   .when('/Summary', {
     templateUrl : '/summary/summary.html',
   })
-  .otherwise({
+  .when('/Details/:{{epa}}',{
+    templateUrl : '/details/epa-details.html'
+  })
+  /*.otherwise({
     redirectTo  : '/'
-  });
+  });*/
 }]);
