@@ -1,3 +1,12 @@
 <div ng-controller="summaryCtrl">
-  {{summaryDeltas}}
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-xs-4 col-md-4" ng-repeat="delta in summaryDeltas" align="center">
+        <span class="glyphicon glyphicon-arrow-up">
+        <div ng-repeat="epa in delta">
+          EPA {{epa}}
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
