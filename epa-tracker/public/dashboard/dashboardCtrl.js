@@ -23,7 +23,7 @@ angular.module('appControllers').controller('dashboardCtrl', ['$scope',function(
         },
         yAxis: {
             title: {
-                text: 'Percentage of EPAs by Level of Entrustability'
+                text: ''
             }
 
         },
@@ -41,8 +41,8 @@ angular.module('appControllers').controller('dashboardCtrl', ['$scope',function(
         },
 
         tooltip: {
-            headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-            pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
+            headerFormat: '<span style="font-size:20px">{series.name}</span><br>',
+            pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/></span> <b>'
         },
 
         series: [{
@@ -50,24 +50,24 @@ angular.module('appControllers').controller('dashboardCtrl', ['$scope',function(
             colorByPoint: true,
             data: [{
                 name: 'Pre Entrustable',
-                y: ($scope.graphData.Mastery4.length/15)*100,
-                drilldown: 'Pre Entrustable'
+                y: ($scope.graphData.Mastery1.length/13)*100,
+                //drilldown: 'Pre Entrustable'
             }, {
                 name: 'Mastery Level 2',
-                y: ($scope.graphData.Mastery4.length/15)*100,
-                drilldown: 'Level 2'
+                y: ($scope.graphData.Mastery2.length/13)*100,
+                //drilldown: 'Level 2'
             }, {
                 name: 'Mastery Level 3',
-                y: ($scope.graphData.Mastery3.length/15)*100,
-                drilldown: 'Level 3'
+                y: ($scope.graphData.Mastery3.length/13)*100,
+                //drilldown: 'Level 3'
             }, {
                 name: 'Entrustable',
-                y: ($scope.graphData.Mastery4.length/15)*100,
-                drilldown: 'Entrustable'
+                y: ($scope.graphData.Mastery4.length/13)*100,
+                //drilldown: 'Entrustable'
             }, {
             }]
         }],
-        drilldown: {
+        /*drilldown: {
             series: [{
                 name: 'Pre Entrustable',
                 id: 'Pre Entrustable',
@@ -85,10 +85,10 @@ angular.module('appControllers').controller('dashboardCtrl', ['$scope',function(
                 id: 'Entrustable',
                 data: $scope.graphData.Mastery4
             }]
-        }
+        }*/
     });
     // Apply the theme
-    Highcharts.setOptions(Highcharts.theme);
+    highcharts.setOptions(Highcharts.theme);
 });
 
 }]);

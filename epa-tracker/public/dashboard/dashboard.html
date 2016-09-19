@@ -1,6 +1,20 @@
 <div ng-controller="dashboardCtrl">
-  <div id="container">
-    <div id="chart" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-xs-12 col-md-8 col-md-offset-2">
+        <div id="chart" style="min-width: 240px; height: 400px; margin: 10 auto"></div>
+      </div>
+    </div>
+    <div class="row">
+      <div class ="col-md-offset-2">
+        <div class = "col-md-2" ng-repeat="level in graphData">
+          <div align = "center">
+            <div ng-repeat="epa in level">
+              EPA {{epa}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-  {{graphData.Mastery1.length}}
 </div>
