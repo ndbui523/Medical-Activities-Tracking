@@ -1,8 +1,19 @@
 <div ng-controller="summaryCtrl">
   <div class="container-fluid">
     <div class="row">
-      <div class="col-xs-4 col-md-4" ng-repeat="delta in summaryDeltas" align="center">
-        <span class="glyphicon glyphicon-arrow-up" style="font-size: 200px;"></span>
+      <div class="col-xs-4 col-md-4" align="center">
+        <span class="glyphicon glyphicon-arrow-up" style="font-size: 150px;"></span>
+      </div>
+      <div class="col-xs-4 col-md-4" align="center">
+        <span class="glyphicon glyphicon-sort" style="font-size: 150px;"></span>
+      </div>
+      <div class="col-xs-4 col-md-4" align="center">
+        <span class="glyphicon glyphicon-arrow-down" style="font-size: 150px;"></span>
+      </div>
+    </div>
+    <div class="row"  style="padding-top: 50px">
+      <div class="col-xs-4 col-md-4" ng-repeat="(key, delta) in summaryDeltas" align="center">
+        <h4>{{key}}</h4>
         <div ng-repeat="epa in delta">
           <a href="#/Details/{{epa}}">EPA {{epa}}</a>
         </div>
