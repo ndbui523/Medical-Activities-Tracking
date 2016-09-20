@@ -7,7 +7,8 @@
     </div>
     <div class="row">
       <div class ="col-md-offset-2">
-        <div class = "col-md-2" ng-repeat="level in graphData">
+        <div class = "col-md-1" ng-repeat="level in graphData">
+          <div class = "col-md-1" ng-repeat="level in graphData"></div>
           <div align = "center">
             <div ng-repeat="epa in level">
               <a href="#/Details/{{epa}}">EPA {{epa}}</a>
