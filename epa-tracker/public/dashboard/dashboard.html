@@ -8,16 +8,6 @@
         <div id="chart" style="min-width: 240px; height: 400px; margin: 10 auto"></div>
       </div>
     </div>
-<<<<<<< HEAD
-    <div class="row">
-      <div class ="col-md-offset-2">
-        <div class = "col-md-1" ng-repeat="level in graphData">
-          <div class = "col-md-1" ng-repeat="level in graphData"></div>
-          <div align = "center">
-            <div ng-repeat="epa in level">
-              <a href="#/Details/{{epa}}">EPA {{epa}}</a>
-            </div>
-=======
     <div class="row" style="padding-top: 50px">
       <div class ="col-md-2"></div>
       <div class = "col-md-2" ng-repeat="(key, level) in graphData">
@@ -25,7 +15,6 @@
           <h4>{{key}}</h4>
           <div ng-repeat="epa in level | orderBy:epa">
             <a href="#/Details/{{epa}}">EPA {{epa}}</a>
->>>>>>> 8972e07f018f72af5754e3298c748b6abb8aad3c
           </div>
         </div>
       </div>
