@@ -1,16 +1,11 @@
 <div ng-controller="epa-details-controller">
   <h2 align="center">EPA {{epa}} - Getting Patient History</h2>
   <h4 align="center">You are currently at an EPA mastery level of 4.</h4>
-  <h4 align="center">Mastery level 4 - entrustable - means that you should feel comfortable performing tasks without supervision.</h4>
-  <h4 align="center">Since the start of the month your mastery level for this EPA has risen.</h4>
+  <div align="center">
+    <span class="glyphicon glyphicon-arrow-up" style="font-size: 100px; color: #388E3C"></span>
+  </div>
+  <h4 align="center">Your level in this EPA has risen since the last examination.</h4>
   <div class="row" style="padding-top: 50px">
-    <div class="col-md-6">
-      <div align=center>
-        <h3>Your Recent Exams</h3>
-        <div class="detail-exam">Sept 14 - Test ABC: 90%</div>
-        <div class="detail-exam">May 05 - Test XYZ: 79%</div>
-      </div>
-    </div>
     <div class="col-md-6">
       <h3 align="center">EPA {{epa}} Checklist</h3>
       <ul>
@@ -48,6 +43,31 @@ each step, keeping patients covered during the examination).</li>
           </ul>
         </li>
       </ul>
+    </div>
+    <div class="col-md-6">
+      <div align=center>
+        <h3>Your Recent Exams</h3>
+        <div class="detail-exam">Sept 14 2015 - Test ABC: 90%
+          <span class="glyphicon glyphicon-arrow-up" style="font-size: 25px; color: #388E3C"></span>
+          <span class="glyphicon glyphicon-envelope" style="font-size: 15px;"></span>
+          1 Comment
+        </div>
+        <div class="detail-exam">Jan 09 2016 - Test XYZ: 65%
+          <span class="glyphicon glyphicon-arrow-down" style="font-size: 25px; color: #D32F2F"></span>
+          <span class="glyphicon glyphicon-envelope" style="font-size: 15px;"></span>
+          5 Comments
+        </div>
+        <div class="detail-exam">April 25 2016 - Test GHI: 79%
+          <span class="glyphicon glyphicon-sort" style="font-size: 25px; color: #F9AE1D;"></span>
+          <span class="glyphicon glyphicon-envelope" style="font-size: 15px;"></span>
+          3 Comments
+        </div>
+        <div class="detail-exam">May 05 2016 - Test DEF: 95%
+          <span class="glyphicon glyphicon-arrow-up" style="font-size: 25px; color: #388E3C"></span>
+          <span class="glyphicon glyphicon-envelope" style="font-size: 15px;"></span>
+          2 Comments
+        </div>
+      </div>
     </div>
   </div>
 </div>

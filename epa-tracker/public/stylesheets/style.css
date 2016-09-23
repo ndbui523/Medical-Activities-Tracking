@@ -10,13 +10,3 @@ body{
 .detail-exam{
   font-size:16px;
 }
-
-.detail-exam:hover{
-  background-color: #FF69B4;
-  cursor: default;
-}
-
-.detail-li:hover{
-  color: #FF69B4;
-  cursor: default;
-}
