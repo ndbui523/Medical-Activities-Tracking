@@ -6,14 +6,20 @@ angular.module('appControllers').controller('dashboardCtrl', ['$scope',function(
     'Mastery3': [8,9,12],
     'Mastery4': [10]
   };
+  $scope.summaryDeltas = {
+    'Regressed': [11],
+    'Even': [1,2,3,4,5,6,7,10,12,13],
+    'Improved': [8,9]
+  };
   $(function () {
     // Create the chart
     $('#chart').highcharts({
         chart: {
-            type: 'column'
+            type: 'column',
+            backgroundColor:'transparent'
         },
         title: {
-            text: 'Percentage of EPAs by Level of Entrustability'
+            text: 'EPAs by Level of Entrustability'
         },
         subtitle: {
             text: 'Click the columns to view EPAs'
