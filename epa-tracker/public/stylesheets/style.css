@@ -1,3 +1,7 @@
 .glyphicon {
   font-size: 200px;
 }
+
+.detail-li: hover{
+  color: #FF69B4;
+}
