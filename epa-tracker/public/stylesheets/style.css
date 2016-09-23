@@ -2,6 +2,10 @@
   font-size: 200px;
 }
 
-.detail-li: hover{
+.detail-li:hover{
   color: #FF69B4;
+}
+
+.detail-section{
+  background-color: #F5F5F5;
 }
