@@ -1,7 +1,22 @@
 body{
   background-color: #F5F5F5;
+  font: Helvetica;
 }
 
 .glyphicon {
   font-size: 200px;
+}
+
+.detail-exam{
+  font-size:16px;
+}
+
+.detail-exam:hover{
+  background-color: #FF69B4;
+  cursor: default;
+}
+
+.detail-li:hover{
+  color: #FF69B4;
+  cursor: default;
 }
