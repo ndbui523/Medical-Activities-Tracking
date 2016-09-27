@@ -1,51 +1,50 @@
 <div ng-controller="dashboardCtrl">
   <div class="container-fluid">
-    <div class="row">
-      <div class="col-xs-12 col-md-8 col-md-offset-2">
-        <h1 align="center">
-          Lindsay Krinkle
-        </h1>
-      </div>
-      <div class="row" style="padding-top: 75px;">
-        <div class="col-xs-12 col-md-6">
-           <div id="chart" style="min-width: 240px; height: 400px; margin: 10 auto"></div>
-        </div>
-        <div class="col-xs-12 col-md-6">
-          <h3 align="center">
-            EPA List by Mastery Level
-          </h3>
-            <div class="col-xs-4 col-md-4" align="center">
-              <span class="glyphicon glyphicon-arrow-down" style="font-size: 150px; color: #D32F2F;"></span>
-            </div>
-            <div class="col-xs-4 col-md-4" align="center">
-              <span class="glyphicon glyphicon-sort" style="font-size: 150px; color: #F9AE1D;"></span>
-            </div>
-            <div class="col-xs-4 col-md-4" align="center">
-              <span class="glyphicon glyphicon-arrow-up" style="font-size: 150px; color: #388E3C"></span>
-            </div>
-            <div class="col-xs-4 col-md-4" ng-repeat="(key, delta) in summaryDeltas" align="center">
-              <h4>{{key}}</h4>
-              <div ng-repeat="epa in delta">
-                <a href="#/Details/{{epa}}">EPA {{epa}}</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+    <div class="col-xs-12 col-md-8 col-md-offset-2">
+      <h1 align="center">
+        Lindsay Krinkle
+      </h1>
     </div>
-    <div class="row" style="padding-top: 25px">
+    <div class="row" style="padding-top: 100px;">
+      <div class="col-xs-12 col-md-8 col-md-offset-2">
+         <div id="chart" style="min-width: 240px; height: 400px; margin: 10 auto" align=></div>
+       </div>
+    </div>
+    <div class="row" style="padding-top: 30px;">
+      <div class="col-xs-12 col-md-8 col-md-offset-2">
         <h3 align="center">
           EPA List by Mastery Level
         </h3>
-      <div class ="col-md-2"></div>
-      <div class = "col-md-2" ng-repeat="(key, level) in graphData">
-        <div align = "center">
-          <h4>{{key}}</h4>
-          <div ng-repeat="epa in level | orderBy:epa">
-            <a href="#/Details/{{epa}}">EPA {{epa}}</a>
+          <div class="col-xs-4 col-md-4" align="center">
+            <span class="glyphicon glyphicon-arrow-down" style="font-size: 150px; color: #D32F2F;"></span>
+          </div>
+          <div class="col-xs-4 col-md-4" align="center">
+            <span class="glyphicon glyphicon-sort" style="font-size: 150px; color: #F9AE1D;"></span>
+          </div>
+          <div class="col-xs-4 col-md-4" align="center">
+            <span class="glyphicon glyphicon-arrow-up" style="font-size: 150px; color: #388E3C"></span>
+          </div>
+          <div class="col-xs-4 col-md-4" ng-repeat="(key, delta) in summaryDeltas" align="center">
+            <h4>{{key}}</h4>
+            <div ng-repeat="epa in delta">
+              <a href="#/Details/{{epa}}">EPA {{epa}}</a>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+      <div class="row" style="padding-top: 100px">
+        <h3 align="center">
+          EPA List by Mastery Level
+        </h3>
+        <div class ="col-md-2"></div>
+        <div class = "col-md-2" ng-repeat="(key, level) in graphData">
+          <div align = "center">
+            <h4>{{key}}</h4>
+            <div ng-repeat="epa in level | orderBy:epa">
+              <a href="#/Details/{{epa}}">EPA {{epa}}</a>
+            </div>
+          </div>
+        </div>
+      </div>
   </div>
 </div>

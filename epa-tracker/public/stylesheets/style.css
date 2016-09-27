@@ -1,10 +1,16 @@
 body{
-  background-color: #F5F5F5;
+  background-color: #7BAFD4;
   font: Helvetica;
 }
 
+.col-md-8{
+  background-color: #E1F5FE;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
 .glyphicon {
-  font-size: 200px;
+  text-shadow: 0 4px 8px #BDBDBD;
 }
 
 .detail-exam{
