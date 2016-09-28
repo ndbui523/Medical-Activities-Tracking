@@ -3,9 +3,23 @@ body{
   font: Helvetica;
 }
 
+.row.match-cols{
+  overflow: hidden;
+}
+
+.row.match-cols [class*="col-"]{
+  margin-bottom: -99999px;
+  padding-bottom: 99999px;
+}
+
+.col-md-10,
 .col-md-8{
   background-color: #E1F5FE;
-  border-radius: 15px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.col-md-5{
+  background-color: #E1F5FE;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
