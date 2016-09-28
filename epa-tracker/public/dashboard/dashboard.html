@@ -7,11 +7,11 @@
         </h1>
       </div>
     </div>
-    <div class="row match-cols graphs" style="padding-top: 19px;">
-      <div class="col-xs-12 col-md-5 col-md-offset-1" >
+    <div class="row match-cols graphs" style="padding-top: 20px;">
+      <div class="col-xs-12 col-md-5 col-md-offset-1" style="border-right: 10px solid #7BAFD4;">
          <div id="chart" style="min-width: 240px; height: 400px; margin: 10 auto" align=></div>
        </div>
-      <div class="col-xs-12 col-md-5" style="box-shadow: 0 4px 0 0 rgba(0, 0, 0, 0.2), 0 6px 0 0 rgba(0, 0, 0, 0.19); border-left: 19px solid #7BAFD4;"">
+      <div class="col-xs-12 col-md-5" style="box-shadow: 0 4px 0 0 rgba(0, 0, 0, 0.2), 0 6px 0 0 rgba(0, 0, 0, 0.19); border-left: 10px solid #7BAFD4;"">
         <h3 align="center">
           EPA List by Mastery Level
         </h3>
@@ -32,13 +32,13 @@
           </div>
         </div>
       </div>
-      <div class="row" style="padding-top: 19px; padding-bottom: 19px">
+      <div class="row" style="padding-top: 20px; padding-bottom: 20px">
         <div class="col-xs-12 col-md-10 col-md-offset-1">
           <h3 align="center">
             EPA List by Mastery Level
           </h3>
           <div class ="col-md-2"></div>
-          <div class = "col-md-2" ng-repeat="(key, level) in graphData" style="padding-bottom: 19px">
+          <div class = "col-md-2" ng-repeat="(key, level) in graphData" style="padding-bottom: 20px">
             <div align = "center">
               <h4>{{key}}</h4>
               <div ng-repeat="epa in level | orderBy:epa">
