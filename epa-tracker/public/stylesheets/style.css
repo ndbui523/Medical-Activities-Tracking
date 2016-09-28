@@ -1,10 +1,37 @@
 body{
-  background-color: #F5F5F5;
+  background-color: #7BAFD4;
   font: Helvetica;
 }
 
 .glyphicon {
-  font-size: 200px;
+  text-shadow: 0 4px 8px #BDBDBD;
+}
+
+.col-md-10{
+  background-color: #E1F5FE;
+  /*box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);*/
+}
+
+.row{
+  overflow:hidden;
+}
+
+.left-half{
+  background-color: #E1F5FE;
+  /*box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);*/
+  margin-right: -5px;
+  margin-left: -15px;
+  padding-bottom: 1000px;
+  margin-bottom: -1000px;
+}
+
+.right-half{
+  background-color: #E1F5FE;
+  /*box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);*/
+  margin-right: -15px;
+  margin-left: -5px;
+  padding-bottom: 1000px;
+  margin-bottom: -1000px;
 }
 
 .detail-exam{

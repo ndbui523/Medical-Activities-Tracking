@@ -7,9 +7,6 @@ myApp.config(['$routeProvider', function($routeProvider) {
   .when('/', {
     templateUrl : '/dashboard/dashboard.html',
   })
-  .when('/Summary', {
-    templateUrl : '/summary/summary.html',
-  })
   .when('/Details/:epa',{
     templateUrl : '/details/epa-details.html'
   })
