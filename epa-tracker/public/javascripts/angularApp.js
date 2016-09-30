@@ -10,6 +10,9 @@ myApp.config(['$routeProvider', function($routeProvider) {
   .when('/Details/:epa',{
     templateUrl : '/details/epa-details.html'
   })
+  .when('/Advisor/:advisor',{
+    templateUrl : '/advisor/advisor.html'
+  })
   /*.otherwise({
     redirectTo  : '/'
   });*/
