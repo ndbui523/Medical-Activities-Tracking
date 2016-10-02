@@ -6,14 +6,16 @@ body{
 .glyphicon {
   text-shadow: 0 4px 8px #BDBDBD;
 }
-
 .col-md-10{
   background-color: #E1F5FE;
   /*box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);*/
 }
-
+.col-md-8{
+  background-color: #E1F5FE;
+}
 .row{
   overflow:hidden;
+  padding-top:20px;
 }
 
 .left-half{
