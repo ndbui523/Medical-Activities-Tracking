@@ -8,10 +8,16 @@ body{
 }
 
 .row{
-  margin: 10px;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 .col-md-10{
+  background-color: #E1F5FE;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.col-xs-12{
   background-color: #E1F5FE;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
@@ -23,13 +29,27 @@ body{
 
 .flex-container{
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
+  margin: 20px -15px 20px -15px;
 }
 
-.flex-item{
-  background-color: #E1F5FE;
-  width: 40%;
-  padding: 5px;
-  margin: 10px 17px 10px 17px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+@media all and (min-width: 992px){
+  .flex-item{
+    background-color: #E1F5FE;
+    width: 41%;
+    padding: 5px;
+    margin: 0px 11px 0px 11px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  }
+}
+
+@media all and (max-width: 991px){
+  .flex-item{
+    background-color: #E1F5FE;
+    width: 100%;
+    padding: 5px;
+    margin: 20px 0px 20px 0px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  }
 }
