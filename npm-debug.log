@@ -4,18 +4,19 @@
 1 verbose cli   'start' ]
 2 info using npm@2.15.9
 3 info using node@v4.5.0
-4 verbose stack Error: ENOENT: no such file or directory, open 'C:\Users\tluo\Documents\College\Medical-Activities-Tracking\package.json'
-4 verbose stack     at Error (native)
-5 verbose cwd C:\Users\tluo\Documents\College\Medical-Activities-Tracking
-6 error Windows_NT 6.2.9200
-7 error argv "C:\\Program Files\\nodejs\\node.exe" "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js" "start"
-8 error node v4.5.0
-9 error npm  v2.15.9
-10 error path C:\Users\tluo\Documents\College\Medical-Activities-Tracking\package.json
-11 error code ENOENT
-12 error errno -4058
-13 error syscall open
-14 error enoent ENOENT: no such file or directory, open 'C:\Users\tluo\Documents\College\Medical-Activities-Tracking\package.json'
-14 error enoent This is most likely not a problem with npm itself
-14 error enoent and is related to npm not being able to find a file.
-15 verbose exit [ -4058, true ]
+4 verbose config Skipping project config: C:\Users\ndbui/.npmrc. (matches userconfig)
+5 verbose stack Error: ENOENT: no such file or directory, open 'C:\Users\ndbui\package.json'
+5 verbose stack     at Error (native)
+6 verbose cwd C:\Users\ndbui\documents\Medical-Activities-Tracking
+7 error Windows_NT 6.3.9600
+8 error argv "C:\\Program Files\\nodejs\\node.exe" "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js" "start"
+9 error node v4.5.0
+10 error npm  v2.15.9
+11 error path C:\Users\ndbui\package.json
+12 error code ENOENT
+13 error errno -4058
+14 error syscall open
+15 error enoent ENOENT: no such file or directory, open 'C:\Users\ndbui\package.json'
+15 error enoent This is most likely not a problem with npm itself
+15 error enoent and is related to npm not being able to find a file.
+16 verbose exit [ -4058, true ]
