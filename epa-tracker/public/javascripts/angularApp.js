@@ -7,11 +7,13 @@ myApp.config(['$routeProvider', function($routeProvider) {
   .when('/', {
     templateUrl : '/dashboard/dashboard.html',
   })
-  .when('/Details/:epa',{
-    templateUrl : '/details/epa-details.html'
+  .when('/details/:epa',{
+    templateUrl : '/details/epa-details.html',
+    caseInsensitiveMatch: true
   })
-  .when('/Advisor/:advisor',{
-    templateUrl : '/advisor/advisor.html'
+  .when('/adviser/:adviser',{
+    templateUrl : '/adviser/adviser.html',
+    caseInsensitiveMatch: true
   })
   /*.otherwise({
     redirectTo  : '/'

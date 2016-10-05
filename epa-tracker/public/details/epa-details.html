@@ -1,17 +1,18 @@
 <div ng-controller="epa-details-controller">
-  <div class = "row">
-    <div class="col-xs-12 col-md-10 col-md-offset-1">
-      <h2 align="center">EPA {{epa}} - Getting Patient History</h2>
-      <h4 align="center">You are currently at an EPA mastery level of 4.</h4>
-      <div align="center">
-        <span class="glyphicon glyphicon-arrow-up" style="font-size: 100px; color: #388E3C"></span>
+  <div class="container-fluid">
+    <div class = "row">
+      <div class="col-xs-12 col-md-10 col-md-offset-1">
+        <h2 align="center">EPA {{epa}} - Getting Patient History</h2>
+        <h4 align="center">You are currently at an EPA mastery level of 4.</h4>
+        <div align="center">
+          <span class="glyphicon glyphicon-arrow-up" style="font-size: 100px; color: #388E3C"></span>
+        </div>
+        <h4 align="center">Your level in this EPA has risen since the last examination.</h4>
       </div>
-      <h4 align="center">Your level in this EPA has risen since the last examination.</h4>
     </div>
-  </div>
-  <div class="row" style="padding-top: 50px">
-    <div class="col-xs-12 col-md-5 col-md-offset-1">
-      <div class="left-half">
+
+    <div class="flex-container">
+      <div class="flex-item">
         <h3 align="center">EPA {{epa}} Checklist</h3>
         <ul>
           <li class="detail-li">
@@ -40,8 +41,8 @@
             Patient-centered skills:
             <ul>
               <li>Demonstrates patient-centered interview skills (attentive to patient verbal and nonverbal cues, patient/
-  family culture, social determinants of health, need for interpretive or adaptive services; demonstrates
-  active listening skills).</li>
+                family culture, social determinants of health, need for interpretive or adaptive services; demonstrates
+                active listening skills).</li>
               <li>Demonstrates patient-centered examination techniques that reflect respect for patient privacy, comfort,
   and safety (that is, explaining physical exam maneuvers, telling the patient what the physician is doing at
   each step, keeping patients covered during the examination).</li>
@@ -49,10 +50,9 @@
           </li>
         </ul>
       </div>
-    </div>
-    <div class="col-xs-12 col-md-5">
-      <div class="right-half" align=center>
-        <h3>Your Recent Exams</h3>
+
+      <div class="flex-item">
+        <h3 align="center">Your Recent Exams</h3>
         <div class="detail-exam">Sept 14 2015 - Test ABC: 90%
           <span class="glyphicon glyphicon-arrow-up" style="font-size: 25px; color: #388E3C"></span>
           <span class="glyphicon glyphicon-envelope" style="font-size: 15px;"></span>
@@ -76,4 +76,5 @@
       </div>
     </div>
   </div>
+
 </div>
