@@ -14,38 +14,13 @@
     <div class="flex-container">
       <div class="flex-item">
         <h3 align="center">EPA {{epa}} Checklist</h3>
-        <ul>
+        <ul ng-repeat="criteria in epaDetails[0].criteria">
           <li class="detail-li">
-            Information gathering and physical exam maneuvers:
-            <ul>
-              <li>Obtains a complete and accurate history in an organized fashion.</li>
-              <li>Identifies pertinent history elements in common presenting situations, symptoms, complaints, disease
-  states (acute and chronic).</li>
-              <li>Obtains focused, pertinent histories in urgent, emergent, and consultation settings.</li>
-              <li>Identifies and uses alternate sources of information to obtain history when needed, including from family
-  members, primary care physicians, living facilities, and pharmacies.</li>
-              <li>Performs a complete and accurate physical exam in logical and fluid sequence.</li>
-              <li>Performs a clinically relevant, focused physical exam pertinent to the setting and focus of the patient visit.</li>
-              <li>Identifies, describes, and documents abnormal physical exam findings.</li>
-            </ul>
-          </li>
-          <li class="detail-li">
-            Scientific foundation and/or reasoning skills:
-            <ul>
-              <li>Demonstrates clinical reasoning in gathering focused information relevant to a patient’s care.</li>
-              <li>Links current findings to those from previous patients.</li>
-              <li>Uses analytic reasoning and activation of prior knowledge to guide process.</li>
-            </ul>
-          </li>
-          <li class="detail-li">
-            Patient-centered skills:
-            <ul>
-              <li>Demonstrates patient-centered interview skills (attentive to patient verbal and nonverbal cues, patient/
-                family culture, social determinants of health, need for interpretive or adaptive services; demonstrates
-                active listening skills).</li>
-              <li>Demonstrates patient-centered examination techniques that reflect respect for patient privacy, comfort,
-  and safety (that is, explaining physical exam maneuvers, telling the patient what the physician is doing at
-  each step, keeping patients covered during the examination).</li>
+            {{criteria.mainCriteria}}
+            <ul ng-repeat="sub in criteria.subCriteria">
+              <li>
+                {{sub}}
+              </li>
             </ul>
           </li>
         </ul>
@@ -84,7 +59,7 @@
           <h4 class="modal-title">Exam 1 Comments</h4>
         </div>
         <div class="modal-body">
-          <div>Greetings from Mr. Jiggers</div>
+          <div>Greetings</div>
           <div>Link to exam.</div>
         </div>
         <div class="modal-footer">
