@@ -6,6 +6,10 @@ body{
   text-shadow: 0 4px 8px #BDBDBD;
 }
 
+.glyphicon.glyphicon-sort{
+  transform: rotate(90deg);
+}
+
 .row{
   margin-top: 15px;
   margin-bottom: 15px;
