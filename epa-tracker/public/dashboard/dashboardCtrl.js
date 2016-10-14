@@ -11,6 +11,20 @@ angular.module('appControllers').controller('dashboardCtrl', ['$scope',function(
     'Even': [1,2,3,4,5,6,7,10,12,13],
     'Improved': [8,9]
   };
+
+  $scope.helpText = "This is placeholder text"
+  $scope.displayHelp = function(event){
+    if(event.target.id == "chartHelp"){
+      $scope.helpText = "chart";
+    }
+    if(event.target.id == "regHelp"){
+      $scope.helpText = "Regressed";
+    }
+    if(event.target.id == "listHelp"){
+      $scope.helpText = "list";
+    }
+  }
+
   $(function () {
     // Create the chart
     $('#chart').highcharts({
