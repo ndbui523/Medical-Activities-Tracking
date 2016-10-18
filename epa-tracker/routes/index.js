@@ -1,3 +1,4 @@
+var sql = require('mysql')
 var express = require('express');
 var router = express.Router();
 
@@ -6,7 +7,7 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
-router.get('/api',function(req,res) {
+router.get('/details/1',function(req,res) {
   res.json({
     "id" : "1",
     "criteria" : [
@@ -38,6 +39,21 @@ router.get('/api',function(req,res) {
         ]
       }
     ]
+  });
+});
+router.get('/users/1',function(req,res) {
+  res.json({
+    graphData:{
+      'Mastery1': [1,3,2,5],
+      'Mastery2': [4,13,11,7,6],
+      'Mastery3': [8,9,12],
+      'Mastery4': [10]
+    },
+    summaryDeltas:{
+      'Regressed': [11],
+      'Even': [1,2,3,4,5,6,7,10,12,13],
+      'Improved': [8,9]
+    }
   });
 });
 

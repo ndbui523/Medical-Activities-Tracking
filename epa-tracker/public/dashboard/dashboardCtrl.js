@@ -1,17 +1,24 @@
-angular.module('appControllers').controller('dashboardCtrl', ['$scope',function($scope){
-  $scope.graphData = {
+angular.module('appControllers').controller('dashboardCtrl', ['$scope','$routeParams','$http',function($scope,$routeParams,$http){
+  $scope.epa = $routeParams.epa
+  $scope.test = "Hello Details"
+  $http({
+    method: 'GET',
+    url: '/users/1'
+    }).then(function successCallback(response) {
+      console.log(response.data.graphData);
+      $scope.graphData=response.data.graphData;
+      $scope.summaryDeltas=response.data.summaryDeltas;
+    }, function errorCallback(response) {
+      console.log("error")
+  });
+  /*$scope.graphData = {
     //This will be replaced by a REST GET Call
-    'Mastery1': [1,3,2,5],
-    'Mastery2': [4,13,11,7,6],
-    'Mastery3': [8,9,12],
-    'Mastery4': [10]
   };
   $scope.summaryDeltas = {
-    'Regressed': [11],
-    'Even': [1,2,3,4,5,6,7,10,12,13],
-    'Improved': [8,9]
-  };
 
+  };*/
+
+  //Modal Text
   $scope.helpText = "This is placeholder text"
   $scope.displayHelp = function(event){
     if(event.target.id == "chartHelp"){
@@ -25,6 +32,7 @@ angular.module('appControllers').controller('dashboardCtrl', ['$scope',function(
     }
   }
 
+  //Highcharts
   $(function () {
     // Create the chart
     $('#chart').highcharts({
