@@ -14,7 +14,7 @@
     <div class="flex-container">
       <div class="flex-item">
         <h3 align="center">EPA {{epa}} Checklist</h3>
-        <ul ng-repeat="criteria in epaDetails[0].criteria">
+        <ul ng-repeat="criteria in epaDetails.criteria">
           <li class="detail-li">
             {{criteria.mainCriteria}}
             <ul ng-repeat="sub in criteria.subCriteria">
