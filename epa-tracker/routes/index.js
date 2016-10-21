@@ -41,6 +41,7 @@ router.get('/details/1',function(req,res) {
     ]
   });
 });
+
 router.get('/users/1',function(req,res) {
   res.json({
     graphData:{
@@ -56,5 +57,25 @@ router.get('/users/1',function(req,res) {
     }
   });
 });
+
+// router.get('/users/:id',function(req,res){
+//
+// });
+//
+// router.get('/details/:id',function(req,res){
+//
+// });
+//
+// router.get('/advisers/:id',function(req,res){
+// 
+// });
+//
+// router.get('/tests/:id',function(req,res){
+//
+// });
+//
+// router.get('/comments/:id',function(req,res){
+//
+// });
 
 module.exports = router;
