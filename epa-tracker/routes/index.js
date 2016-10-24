@@ -1,6 +1,12 @@
-var sql = require('mysql')
+var mysql = require('mysql')
 var express = require('express');
 var router = express.Router();
+
+var connection = mysql.createConnection({
+  host     : 'localhost',
+  user     : 'user',
+  password : 'password'
+});
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -58,24 +64,76 @@ router.get('/users/1',function(req,res) {
   });
 });
 
-// router.get('/users/:id',function(req,res){
-//
-// });
-//
-// router.get('/details/:id',function(req,res){
-//
-// });
-//
-// router.get('/advisers/:id',function(req,res){
-// 
-// });
-//
-// router.get('/tests/:id',function(req,res){
-//
-// });
-//
-// router.get('/comments/:id',function(req,res){
-//
-// });
+/*router.get('/students/:id/deltas',function(req,res){
+res.json({
+  connection.connect();
+  connection.query('SELECT newval FROM EPAHistory WHERE id = ? SORT BY updated datetime LIMIT 2', req.params.id, function(err, rows, fields)
+  {
+          console.log('Connection result error '+err);
+          console.log('no of records is '+rows.length);
+          res.writeHead(200, { 'Content-Type': 'application/json'});
+          res.end(JSON.stringify(rows));
+  });
+});
+
+router.get('/students/:id/summary',function(req,res){
+res.json({
+  connection.connect();
+  connection.query('SELECT ..., req.params.id, function(err, rows, fields)
+  //GROUP BY and FIND IN SET (group by epa #, find most recent 1 in set, return most recent value for each) !TODO
+  {
+          console.log('Connection result error '+err);
+          console.log('no of records is '+rows.length);
+          res.writeHead(200, { 'Content-Type': 'application/json'});
+          res.end(JSON.stringify(rows));
+  });
+});
+
+
+router.get('/details/:epa',function(req,res){
+  connection.connect();
+  connection.query('SELECT newval FROM EPAHistory WHERE id = ? SORT BY updated datetime LIMIT 2', req.params.id, function(err, rows, fields)
+  //This doesn't exist yet, need to do JSON file !TODO
+  {
+          console.log('Connection result error '+err);
+          console.log('no of records is '+rows.length);
+          res.writeHead(200, { 'Content-Type': 'application/json'});
+          res.end(JSON.stringify(rows));
+  });
+});
+
+router.get('/advisers/:id',function(req,res){
+  connection.connect();
+  connection.query('SELECT student FROM advisees WHERE advisor = ?', req.params.id, function(err, rows, fields)
+  {
+          console.log('Connection result error '+err);
+          console.log('no of records is '+rows.length);
+          res.writeHead(200, { 'Content-Type': 'application/json'});
+          res.end(JSON.stringify(rows));
+  });
+});
+
+router.get('/tests/:id/:epa',function(req,res){
+  connection.connect();
+  connection.query('SELECT title, uploaded, newval  FROM EPAHistory WHERE student = ? AND epaid = ? SORT BY updated datetime LIMIT 10', req.params.id, req.params.epa function(err, rows, fields)
+  {
+          console.log('Connection result error '+err);
+          console.log('no of records is '+rows.length);
+          res.writeHead(200, { 'Content-Type': 'application/json'});
+          res.end(JSON.stringify(rows));
+  });
+});
+
+router.get('/comments/:id',function(req,res){
+  connection.connect();
+  connection.query('SELECT comment FROM EPAHistory WHERE id = ? SORT BY updated datetime LIMIT 2', req.params.id, function(err, rows, fields)
+  {
+          console.log('Connection result error '+err);
+          console.log('no of records is '+rows.length);
+          res.writeHead(200, { 'Content-Type': 'application/json'});
+          res.end(JSON.stringify(rows));
+  });
+});
+*/
 
 module.exports = router;
