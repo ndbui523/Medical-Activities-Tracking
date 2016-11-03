@@ -6,13 +6,43 @@ body{
   text-shadow: 0 4px 8px #BDBDBD;
 }
 
-.glyphicon.glyphicon-sort{
-  transform: rotate(90deg);
+#deltas .glyphicon.glyphicon-arrow-up {
+  padding-top: 10px;
+  padding-bottom: 20px;
+  font-size: 170px;
+  color: #388E3C;
+}
+
+#deltas .glyphicon.glyphicon-arrow-down {
+  padding-top: 10px;
+  padding-bottom: 20px;
+  font-size: 170px;
+  color: #D32F2F;
+}
+
+#deltas .epa-count {
+  font-size: 35px;
+}
+
+.urgent-red {
+  color: #D32F2F;
+  font-size: 18px;
+}
+
+.urgent-green {
+  color: #388E3C;
+  font-size: 18px;
 }
 
 .block{
   margin-top: 15px;
   margin-bottom: 15px;
+}
+
+.table-category:hover {
+    cursor: pointer;
+    background-color: black;
+    color: white;
 }
 
 .col-md-10,

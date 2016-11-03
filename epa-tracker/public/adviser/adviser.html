@@ -11,12 +11,36 @@
       <div class="col-xs-12 col-md-10 col-md-offset-1">
         <table class="table table-bordered table-hover" style="margin-top: 15px">
           <tr>
-            <th>Student Name</th>
-            <th>PID</th>
+            <th class="table-category" ng-click="sortBy('lastName')">Student Name</th>
+            <th class="table-category" ng-click="sortBy('email')">Email</th>
+            <th class="table-category" ng-click="sortBy('grade')">Grade Level</th>
+            <th class="table-category" ng-click="sortBy('improved')">
+              Improved <span class="glyphicon glyphicon-arrow-up" style="color: #388E3C;"></span>
+            </th>
+            <th class="table-category" ng-click="sortBy('regressed')">
+              Regressed <span class="glyphicon glyphicon-arrow-down" style="color: #D32F2F;"></span>
+            </th>
           </tr>
-          <tr ng-repeat="(id, advisee) in advisees">
-            <td><a href="/#/">{{advisee}}</a></td>
-            <td>{{id}}</td>
+          <tr ng-repeat="advisee in advisees | orderBy:property:reverse">
+            <td><a href="/#/">{{advisee.firstName + ' ' + advisee.lastName}}</a></td>
+            <td>{{advisee.email}}</td>
+            <td>{{advisee.grade}}</td>
+            <td>
+              <div ng-if="advisee.improved >= threshold">
+                <b class="urgent-green">{{advisee.improved}}</b>
+              </div>
+              <div ng-if="advisee.improved < threshold">
+                {{advisee.improved}}
+              </div>
+            </td>
+            <td>
+              <div ng-if="advisee.regressed >= threshold">
+                <b class="urgent-red">{{advisee.regressed}}</b>
+              </div>
+              <div ng-if="advisee.regressed < threshold">
+                {{advisee.regressed}}
+              </div>
+            </td>
           </tr>
         </table>
       </div>
