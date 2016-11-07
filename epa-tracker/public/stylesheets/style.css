@@ -2,8 +2,47 @@ body{
   background-color: #7BAFD4;
 }
 
+.table.test-data > tbody > tr > td {
+  padding: 4px;
+  vertical-align: middle;
+  border: none;
+}
+
+.table.test-data {
+  position: relative;
+  top: 15px;
+  left: 5%;
+  width: 90%;
+}
+
+.table.test-data tr {
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+}
+
+.table.test-data .test-name{
+  width: 70%;
+  text-align: left;
+}
+
+.table.test-data .test-score{
+  width: 10%;
+}
+
+.table.test-data .test-delta{
+  width: 10%;
+}
+
+.table.test-data .test-comment{
+  width: 10%;
+}
+
 .glyphicon {
   text-shadow: 0 4px 8px #BDBDBD;
+}
+
+.glyphicon.glyphicon-sort{
+  transform: rotate(90deg);
 }
 
 #deltas .glyphicon.glyphicon-arrow-up {
@@ -25,13 +64,12 @@ body{
 }
 
 .urgent-red {
-  color: #D32F2F;
-  font-size: 18px;
+  background-color: rgba(211, 47, 47, .6); ;
+
 }
 
 .urgent-green {
-  color: #388E3C;
-  font-size: 18px;
+  background-color : rgba(56, 142, 60, .6);
 }
 
 .block{

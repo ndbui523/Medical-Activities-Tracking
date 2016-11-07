@@ -13,29 +13,29 @@
           <tr>
             <th class="table-category" ng-click="sortBy('lastName')">Student Name</th>
             <th class="table-category" ng-click="sortBy('email')">Email</th>
-            <th class="table-category" ng-click="sortBy('grade')">Grade Level</th>
-            <th class="table-category" ng-click="sortBy('improved')">
+            <th class="table-category" ng-click="sortBy('grade')" style="text-align: center;">Year</th>
+            <th class="table-category" ng-click="sortBy('improved')" style="text-align: center;">
               Improved <span class="glyphicon glyphicon-arrow-up" style="color: #388E3C;"></span>
             </th>
-            <th class="table-category" ng-click="sortBy('regressed')">
+            <th class="table-category" ng-click="sortBy('regressed')" style="text-align: center;">
               Regressed <span class="glyphicon glyphicon-arrow-down" style="color: #D32F2F;"></span>
             </th>
           </tr>
           <tr ng-repeat="advisee in advisees | orderBy:property:reverse">
-            <td><a href="/#/">{{advisee.firstName + ' ' + advisee.lastName}}</a></td>
+            <td><a href="/#/">{{advisee.lastName + ', ' + advisee.firstName}}</a></td>
             <td>{{advisee.email}}</td>
-            <td>{{advisee.grade}}</td>
-            <td>
+            <td style="text-align: center;">{{advisee.grade}}</td >
+            <td ng-class="advisee.improved >= threshold ? 'urgent-green' : ''" style="text-align: center;">
               <div ng-if="advisee.improved >= threshold">
-                <b class="urgent-green">{{advisee.improved}}</b>
+                <b>{{advisee.improved}}</b>
               </div>
               <div ng-if="advisee.improved < threshold">
                 {{advisee.improved}}
               </div>
             </td>
-            <td>
+            <td ng-class="advisee.regressed >= threshold ? 'urgent-red' : ''" style="text-align: center;">
               <div ng-if="advisee.regressed >= threshold">
-                <b class="urgent-red">{{advisee.regressed}}</b>
+                <b>{{advisee.regressed}}</b>
               </div>
               <div ng-if="advisee.regressed < threshold">
                 {{advisee.regressed}}

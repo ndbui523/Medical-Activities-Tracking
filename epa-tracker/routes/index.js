@@ -22,10 +22,10 @@ router.get('/details/:epa',function(req,res) {
 router.get('/users/1',function(req,res) {
   res.json({
     graphData:{
-      'Mastery1': [1,3,2,5],
+      'PreEntrustable': [1,3,2,5],
       'Mastery2': [4,13,11,7,6],
       'Mastery3': [8,9,12],
-      'Mastery4': [10]
+      'Entrustable': [10]
     },
     summaryDeltas:{
       'Regressed': [11],

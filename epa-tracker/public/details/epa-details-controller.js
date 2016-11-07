@@ -34,23 +34,31 @@ angular.module('appControllers').controller('epa-details-controller', ['$scope',
 
     $scope.testInfo = [
       {
-        'name' : 'May 05 2016 - Test DEF: 95%',
+        'name' : 'Piedmont Health Services Rotation',
+        'date' : 'May 05 2016',
+        'score' : 95,
         'delta' : 'up'
       },
 
       {
-        'name' : 'April 25 2016 - Test GHI: 79%',
+        'name' : 'Piedmont Health Services Rotation',
+        'date' : 'April 25 2016',
+        'score' : 79,
         'delta' : 'even'
       },
 
       {
-        'name' : 'Jan 09 2016 - Test XYZ: 65%',
-        'delta' : 'up'
+        'name' : 'Piedmont Health Services Rotation',
+        'date' : 'Jan 09 2016',
+        'score' : 65,
+        'delta' : 'down'
       },
 
       {
-        'name' : 'Sept 14 2015 - Test ABC: 90%',
-        'delta' : 'down'
+        'name' : 'Piedmont Health Services Rotation',
+        'date' : 'Sept 14 2015',
+        'score' : 90,
+        'delta' : 'up'
       }
     ];
 }]);
