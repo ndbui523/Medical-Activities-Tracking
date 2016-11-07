@@ -37,6 +37,16 @@ body{
   width: 10%;
 }
 
+.table-category {
+    font-size: 17px;
+}
+
+.table-category:hover {
+    cursor: pointer;
+    background-color: black;
+    color: white;
+}
+
 .glyphicon {
   text-shadow: 0 4px 8px #BDBDBD;
 }
@@ -75,12 +85,6 @@ body{
 .block{
   margin-top: 15px;
   margin-bottom: 15px;
-}
-
-.table-category:hover {
-    cursor: pointer;
-    background-color: black;
-    color: white;
 }
 
 .col-md-10,

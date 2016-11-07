@@ -13,10 +13,10 @@ angular.module('appControllers').controller('dashboardCtrl', ['$scope','$routePa
               backgroundColor:'transparent'
           },
           title: {
-              text: 'EPAs by Level of Entrustability'
-          },
-          subtitle: {
-              text: 'Click the columns to view EPAs'
+              text: 'EPAs by Level of Entrustability',
+              style: {
+                fontSize: '24px'
+              }
           },
           xAxis: {
               type: 'category'
@@ -41,8 +41,9 @@ angular.module('appControllers').controller('dashboardCtrl', ['$scope','$routePa
           },
 
           tooltip: {
+            enabled: false
               //headerFormat: '<span style="font-size:20px">{series.name}</span><br>',
-              pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y}</b> EPAs<br/></span> <b>'
+              //pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y}</b> EPAs<br/></span> <b>'
           },
 
           series: [{

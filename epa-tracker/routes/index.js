@@ -2,12 +2,22 @@ var mysql = require('mysql')
 var express = require('express');
 var router = express.Router();
 var fs = require('fs');
-
-var connection = mysql.createConnection({
-  host     : 'localhost',
-  user     : 'user',
-  password : 'password'
-});
+// var con = mysql.createConnection({
+//   host: 'localhost',
+//   user: 'user',
+//   password: 'pass',
+//   database: 'medtrackdb'
+// });
+//
+// con.connect(function(err){
+//   if(err){
+//     console.log("Connection error with sql");
+//     console.log(err);
+//     return;
+//   }
+//   console.log("Connection established");
+//   return;
+// })
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
