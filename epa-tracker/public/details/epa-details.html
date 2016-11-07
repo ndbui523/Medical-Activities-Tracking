@@ -4,10 +4,13 @@
       <div class="col-xs-12 col-md-10 col-md-offset-1">
         <h2 align="center">EPA {{epa}} - {{epaDetails.title}}</h2>
         <h4 align="center">You are currently at an EPA mastery level of 4.</h4>
-        <div align="center">
+        <div align="center" ng-if="deltaArrow == 'up'">
           <span class="glyphicon glyphicon-arrow-up" style="font-size: 100px; color: #388E3C"></span>
         </div>
-        <h4 align="center">Your level in this EPA has risen since the last examination.</h4>
+        <div align="center" ng-if="deltaArrow == 'down'">
+          <span class="glyphicon glyphicon-arrow-down" style="font-size: 100px; color: #D32F2F"></span>
+        </div>
+        <h4 align="center">{{deltaText}}</h4>
       </div>
     </div>
 
@@ -27,27 +30,32 @@
       </div>
 
       <div class="flex-item">
-        <h3 align="center">Your Recent Exams</h3>
-        <div class="detail-exam">Sept 14 2015 - Test ABC: 90%
-          <span class="glyphicon glyphicon-arrow-up" style="font-size: 25px; color: #388E3C"></span>
-          <button type="button" class="glyphicon glyphicon-envelope btn btn-link" data-toggle="modal" data-target="#examModal" style="font-size: 15px;"></button>
-          1 Comment
-        </div>
-        <div class="detail-exam">Jan 09 2016 - Test XYZ: 65%
-          <span class="glyphicon glyphicon-arrow-down" style="font-size: 25px; color: #D32F2F"></span>
-          <button type="button" class="glyphicon glyphicon-envelope btn btn-link" data-toggle="modal" data-target="#examModal" style="font-size: 15px;"></button>
-          5 Comments
-        </div>
-        <div class="detail-exam">April 25 2016 - Test GHI: 79%
-          <span class="glyphicon glyphicon-sort" style="font-size: 25px; color: #F9AE1D;"></span>
-          <button type="button" class="glyphicon glyphicon-envelope btn btn-link" data-toggle="modal" data-target="#examModal" style="font-size: 15px;"></button>
-          3 Comments
-        </div>
-        <div class="detail-exam">May 05 2016 - Test DEF: 95%
-          <span class="glyphicon glyphicon-arrow-up" style="font-size: 25px; color: #388E3C"></span>
-          <button type="button" class="glyphicon glyphicon-envelope btn btn-link" data-toggle="modal" data-target="#examModal" style="font-size: 15px;"></button>
-          2 Comments
-        </div>
+        <h3 align="center">Your Recent Assesments</h3>
+          <table class="table test-data">
+            <tr ng-repeat="test in testInfo">
+              <td class="test-name">
+                {{test.name}}
+                <br>
+                {{test.date}}
+              </td>
+              <td class="test-score">
+                {{test.score + "%"}}
+              </td>
+              <td class="test-delta">
+                <div ng-if="test.delta == 'up'">
+                  <span class="glyphicon glyphicon-arrow-up" style="font-size: 20px; color: #388E3C"></span>
+                </div>
+                <div ng-if="test.delta == 'down'">
+                  <span class="glyphicon glyphicon-arrow-down" style="font-size: 20px; color: #D32F2F"></span>
+                </div>
+                <div ng-if="test.delta == 'even'">
+                  <span class="glyphicon glyphicon-sort" style="font-size: 20px; color: #F9AE1D;"></span>
+                </div>
+              </td>
+              <td class="test-comment">
+                <button type="button" class="glyphicon glyphicon-envelope btn btn-link" data-toggle="modal" data-target="#examModal" style="font-size: 15px;"></button>
+              </td>
+          </table>
       </div>
     </div>
   </div>
