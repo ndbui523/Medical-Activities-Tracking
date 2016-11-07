@@ -5,10 +5,13 @@
         <h2 align="center">EPA {{epa}} - {{epaDetails.title}}</h2>
         <h4 align="center">You are currently at an EPA mastery level of 4.</h4>
         <div align="center" ng-if="deltaArrow == 'up'">
-          <span class="glyphicon glyphicon-arrow-up" style="font-size: 100px; color: #388E3C"></span>
+          <span class="glyphicon glyphicon-arrow-up" style="font-size: 100px; color: #388E3C;"></span>
         </div>
         <div align="center" ng-if="deltaArrow == 'down'">
-          <span class="glyphicon glyphicon-arrow-down" style="font-size: 100px; color: #D32F2F"></span>
+          <span class="glyphicon glyphicon-arrow-down" style="font-size: 100px; color: #D32F2F;"></span>
+        </div>
+        <div align="center" ng-if="deltaArrow == 'even'">
+          <span class="glyphicon glyphicon-sort"  style="font-size: 100px; color: #F9AE1D;"></span>
         </div>
         <h4 align="center">{{deltaText}}</h4>
       </div>
