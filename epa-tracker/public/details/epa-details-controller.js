@@ -112,4 +112,17 @@ angular.module('appControllers').controller('epa-details-controller', ['$scope',
             data: testScores.reverse()
         }]
     });
+
+    $scope.helpText = "This is placeholder text"
+    $scope.displayHelp = function(event){
+      if(event.target.id == "headerHelp"){
+        $scope.helpText = "Most recent trend for EPA " + $scope.epa + ".";
+      }
+      if(event.target.id == "examHelp"){
+        $scope.helpText = "Line chart and list of 10 most recent exams.";
+      }
+      if(event.target.id == "checklistHelp"){
+        $scope.helpText = "This is the checklist for EPA " + $scope.epa + ".";
+      }
+    }
 }]);
