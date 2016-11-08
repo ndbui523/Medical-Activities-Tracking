@@ -55,6 +55,10 @@ body{
   transform: rotate(90deg);
 }
 
+.glyphicon.glyphicon-info-sign{
+  float: right;
+}
+
 #deltas .glyphicon.glyphicon-arrow-up {
   padding-top: 10px;
   padding-bottom: 20px;
