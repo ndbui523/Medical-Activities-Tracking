@@ -37,28 +37,92 @@ angular.module('appControllers').controller('epa-details-controller', ['$scope',
         'name' : 'Piedmont Health Services Rotation',
         'date' : 'May 05 2016',
         'score' : 95,
-        'delta' : 'up'
+        'delta' : 'up',
+        'newVal' : 3
       },
 
       {
         'name' : 'Piedmont Health Services Rotation',
         'date' : 'April 25 2016',
         'score' : 79,
-        'delta' : 'even'
+        'delta' : 'even',
+        'newVal' : 2
       },
 
       {
         'name' : 'Piedmont Health Services Rotation',
         'date' : 'Jan 09 2016',
         'score' : 65,
-        'delta' : 'down'
+        'delta' : 'down',
+        'newVal' : 2
       },
 
       {
         'name' : 'Piedmont Health Services Rotation',
         'date' : 'Sept 14 2015',
         'score' : 90,
-        'delta' : 'up'
+        'delta' : 'up',
+        'newVal' : 3
       }
     ];
+
+    var testDates = []
+    var testScores = []
+    $.each($scope.testInfo, function(){
+      testDates.push(this.date);
+      testScores.push(this.newVal);
+    });
+
+    $('#line-chart').highcharts({
+        chart: {
+          backgroundColor:'transparent'
+        },
+        title: {
+            text: 'Recent Exam Trends',
+            style: {
+              fontSize: '24px'
+            }
+
+        },
+        xAxis: {
+            categories: testDates.reverse()
+        },
+        yAxis: {
+            title: {
+                text: 'EPA ' + $scope.epa,
+                style: {
+                  fontSize: '18px'
+                }
+            },
+            plotLines: [{
+                value: 0,
+                width: 1,
+                color: '#808080'
+            }],
+            min: 1,
+            max: 4,
+            tickInterval: 1
+        },
+        credits: {
+          enabled: false
+        },
+        series: [{
+            //name: 'Tokyo',
+            showInLegend: false,
+            data: testScores.reverse()
+        }]
+    });
+
+    $scope.helpText = "This is placeholder text"
+    $scope.displayHelp = function(event){
+      if(event.target.id == "headerHelp"){
+        $scope.helpText = "Most recent trend for EPA " + $scope.epa + ".";
+      }
+      if(event.target.id == "examHelp"){
+        $scope.helpText = "Line chart and list of 10 most recent exams.";
+      }
+      if(event.target.id == "checklistHelp"){
+        $scope.helpText = "This is the checklist for EPA " + $scope.epa + ".";
+      }
+    }
 }]);
