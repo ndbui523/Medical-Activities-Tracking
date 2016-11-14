@@ -3,10 +3,11 @@ angular.module('appControllers').controller('dashboardCtrl', ['$scope','$routePa
   $scope.test = "Hello Details"
   $http({
     method: 'GET',
-    url: '/users/1'
+    url: '/users/1/summary'
     }).then(function successCallback(response) {
-      $scope.graphData=response.data.graphData;
-      $scope.summaryDeltas=response.data.summaryDeltas;
+      $scope.graphData=response.data;
+      //$scope.summaryDeltas=response.data.summaryDeltas;
+      console.log($scope.graphData)
       $('#chart').highcharts({
           chart: {
               type: 'column',
