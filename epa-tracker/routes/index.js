@@ -63,19 +63,18 @@ router.get('/users/:id/deltas',function(req,res){
 router.get('/users/:id/summary',function(req,res){
   //con.connect();
   con.query('SELECT newval, MAX(uploaded), epaid FROM EPAHistory WHERE student = ? GROUP BY epaid', req.params.id, function(err, rows, fields)
-    {
-      if(err){
-        console.log('Connection result error '+err);
-      }
-      else{
-        console.log('no of records is '+rows.length);
-        res.set({'Content-Type':'text/json'});
-        res.send(JSON.stringify(rows));
-        res.end();
-      }
+  {
+    if(err){
+      console.log('Connection result error '+err);
+    }
+    else{
+      console.log('no of records is '+rows.length);
+      res.set({'Content-Type':'text/json'});
+      res.send(JSON.stringify(rows));
+      res.end();
+    }
   });
 });
-
 //
 //
 //
