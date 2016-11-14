@@ -87,6 +87,11 @@ angular.module('appControllers').controller('adviserCtrl', ['$scope', '$routePar
         $scope.reverse = true;
       }
       $scope.property = propertyName;
-
     };
+
+    $scope.displayHelp = function(event){
+      if(event.target.id == "adviserHelp"){
+        $scope.helpText = "List of all advisees and their EPA summaries";
+      }
+    }
 }]);

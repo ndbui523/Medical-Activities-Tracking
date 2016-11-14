@@ -2,6 +2,7 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-xs-12 col-md-10 col-md-offset-1">
+        <button type="button" id="adviserHelp" class="glyphicon glyphicon-info-sign btn btn-link" data-toggle="modal" data-target="#helpModal" ng-click="displayHelp($event);"></button>
         <h1 align="center">
           Ana Felix
         </h1>
@@ -46,4 +47,21 @@
       </div>
     </div>
   </div>
+
+  <div id="helpModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Help</h4>
+        </div>
+        <div class="modal-body">
+          {{helpText}}
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
 </div>
