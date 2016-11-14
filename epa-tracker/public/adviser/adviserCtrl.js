@@ -91,7 +91,8 @@ angular.module('appControllers').controller('adviserCtrl', ['$scope', '$routePar
 
     $scope.displayHelp = function(event){
       if(event.target.id == "adviserHelp"){
-        $scope.helpText = "List of all advisees and their EPA summaries";
+        $scope.helpText = "This section allows advisers to see a list of their students." +
+        "\r\nClick on a field to sort by that field. Students with high numbers of improved or regressed EPAs will appear highlighted.";
       }
     }
 }]);

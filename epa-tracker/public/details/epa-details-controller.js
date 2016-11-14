@@ -116,13 +116,15 @@ angular.module('appControllers').controller('epa-details-controller', ['$scope',
     $scope.helpText = "This is placeholder text"
     $scope.displayHelp = function(event){
       if(event.target.id == "headerHelp"){
-        $scope.helpText = "Most recent trend for EPA " + $scope.epa + ".";
+        $scope.helpText = "This is the EPA details page for EPA" + $scope.epa + "." +
+          "\r\nThis section shows a general overview of student progress on an EPA.";
       }
       if(event.target.id == "examHelp"){
-        $scope.helpText = "Line chart and list of 10 most recent exams.";
+        $scope.helpText = "This section contains a list and line graph of the 10 most recent grades that have affected the EPA evaluation for a student." +
+          "\r\nThe list items include the exam/rotation name and date, the evaluation and effect on EPA mastery level by that item, and a link to all comments for that item.";
       }
       if(event.target.id == "checklistHelp"){
-        $scope.helpText = "This is the checklist for EPA " + $scope.epa + ".";
+        $scope.helpText = "This section details the checklist of activities that an entrustable student is expected to be able to perform under EPA" + $scope.epa + ".";
       }
     }
 }]);
