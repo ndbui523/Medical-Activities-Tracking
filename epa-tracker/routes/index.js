@@ -45,34 +45,36 @@ router.get('/users/1',function(req,res) {
   });
 });
 
-/*router.get('/students/:id/deltas',function(req,res){
-res.json({
-  connection.connect();
-  connection.query('SELECT newval FROM EPAHistory WHERE uid = ? SORT BY updated datetime LIMIT 2', req.params.id, function(err, rows, fields)
+router.get('/users/:id/deltas',function(req,res){
+  con.query('SELECT SUM(newval), epaid, count(*) FROM EPAHistory WHERE student = ? GROUP BY epaid', req.params.id, function(err, rows, fields)
   {
-          console.log('Connection result error '+err);
-          console.log('no of records is '+rows.length);
-          res.writeHead(200, { 'Content-Type': 'application/json'});
-          res.end(JSON.stringify(rows));
+    if(err){
+      console.log('Connection result error '+err);
+    }
+    else{
+      console.log('no of records is '+rows.length);
+      res.set({'Content-Type':'text/json'});
+      res.send(JSON.stringify(rows));
+      res.end();
+    }
   });
 });
-*/
-// router.get('/users/:id/summary',function(req,res){
-//   //con.connect();
-//   con.query('SELECT newval, MAX(uploaded) FROM EPAHistory WHERE uid = ? GROUP BY epaid', req.params.id, function(err, rows, fields)
-//     {
-//       if(err){
-//         console.log('Connection result error '+err);
-//       }
-//       else{
-//         console.log('no of records is '+rows.length);
-//         res.writeHead(200, { 'Content-Type': 'application/json'});
-//         res.json(JSON.stringify(rows));
-//         res.end();
-//       }
-//   });
-// });
 
+router.get('/users/:id/summary',function(req,res){
+  //con.connect();
+  con.query('SELECT newval, MAX(uploaded), epaid FROM EPAHistory WHERE student = ? GROUP BY epaid', req.params.id, function(err, rows, fields)
+  {
+    if(err){
+      console.log('Connection result error '+err);
+    }
+    else{
+      console.log('no of records is '+rows.length);
+      res.set({'Content-Type':'text/json'});
+      res.send(JSON.stringify(rows));
+      res.end();
+    }
+  });
+});
 //
 //
 //

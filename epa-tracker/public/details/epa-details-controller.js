@@ -13,24 +13,58 @@ angular.module('appControllers').controller('epa-details-controller', ['$scope',
 
   $http({
     method: 'GET',
-    url: '/users/1'
-    }).then(function successCallback(response) {
-      $scope.summaryDeltas=response.data.summaryDeltas;
-      if($.inArray(Number($scope.epa),$scope.summaryDeltas.Improved) != -1) {
-        $scope.deltaText = 'Your level in this EPA has risen since the last examination.'
-        $scope.deltaArrow = 'up'
+    url: '/users/1/summary'
+  }).then(function successCallback(response) {
+      $scope.currentEPAs = response.data;
+      console.log($scope.currentEPAs)
+  }, function errorCallback(response) {
+      console.log("error")
+  });
+
+  $http({
+    method: 'GET',
+    url: '/users/1/deltas'
+  }).then(function successCallback(response) {
+    console.log(response.data)
+    $scope.summaryDeltas = {
+      'Regressed' : [],
+      'Even' : [],
+      'Improved' : []
+    }
+    $scope.currentEPAs.forEach(function(element){
+      var avgTemp;
+      if(response.data[element.epaid-1]['count(*)'] != 0){
+        avgTemp = response.data[element.epaid-1]['SUM(newval)']/response.data[element.epaid-1]['count(*)'];
+        if(element.newval - avgTemp == 0){
+          $scope.summaryDeltas.Even.push(element.epaid);
+        }
+        else if(element.newval - avgTemp > 0){
+          $scope.summaryDeltas.Improved.push(element.epaid);
+        }
+        else{
+          $scope.summaryDeltas.Regressed.push(element.epaid);
+        }
       }
-      else if($.inArray(Number($scope.epa),$scope.summaryDeltas.Even) != -1) {
-        $scope.deltaText = 'Your level in this EPA has stayed the same since the last examination.';
-        $scope.deltaArrow = 'even'
-      }
-      else {
-        $scope.deltaText = 'Your level in this EPA has fallen since the last examination.';
-        $scope.deltaArrow = 'down'
-      }
-    }, function errorCallback(response) {
-      console.log("Error in /users/1")
+
     });
+    console.log($scope.summaryDeltas);
+
+    if($.inArray(Number($scope.epa),$scope.summaryDeltas.Improved) != -1) {
+      $scope.deltaText = 'Your level in this EPA has risen since the last examination.'
+      $scope.deltaArrow = 'up'
+    }
+    else if($.inArray(Number($scope.epa),$scope.summaryDeltas.Even) != -1) {
+      $scope.deltaText = 'Your level in this EPA has stayed the same since the last examination.';
+      $scope.deltaArrow = 'even'
+    }
+    else {
+      $scope.deltaText = 'Your level in this EPA has fallen since the last examination.';
+      $scope.deltaArrow = 'down'
+    }
+
+  }, function errorCallback(response) {
+    console.log("error")
+  });
 
     $scope.testInfo = [
       {
