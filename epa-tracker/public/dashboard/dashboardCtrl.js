@@ -4,10 +4,20 @@ angular.module('appControllers').controller('dashboardCtrl', ['$scope','$routePa
   $http({
     method: 'GET',
     url: '/users/1/summary'
-    }).then(function successCallback(response) {
-      $scope.graphData=response.data;
+  }).then(function successCallback(response) {
+      $scope.currentEPAs = response.data;
+      console.log($scope.currentEPAs)
+      $scope.graphData = {
+        '1' : [],
+        '2' : [],
+        '3' : [],
+        '4' : []
+      };
+      $scope.currentEPAs.forEach(function(element){
+        var temp = element.newval;
+        $scope.graphData[temp].push(element.epaid);
+      });
       //$scope.summaryDeltas=response.data.summaryDeltas;
-      console.log($scope.graphData)
       $('#chart').highcharts({
           chart: {
               type: 'column',
@@ -52,22 +62,22 @@ angular.module('appControllers').controller('dashboardCtrl', ['$scope','$routePa
               colorByPoint: true,
               data: [{
                   name: 'Pre Entrustable',
-                  y: $scope.graphData.PreEntrustable.length,
+                  y: $scope.graphData[1].length,
                   color: '#880E4F'
                   //drilldown: 'Pre Entrustable'
               }, {
                   name: 'Mastery Level 2',
-                  y: $scope.graphData.Mastery2.length,
+                  y: $scope.graphData[2].length,
                   color: '#7E57C2'
                   //drilldown: 'Level 2'
               }, {
                   name: 'Mastery Level 3',
-                  y: $scope.graphData.Mastery3.length,
+                  y: $scope.graphData[3].length,
                   color: '#607D8B'
                   //drilldown: 'Level 3'
               }, {
                   name: 'Entrustable',
-                  y: $scope.graphData.Entrustable.length,
+                  y: $scope.graphData[4].length,
                   color: '#1565C0'
                   //drilldown: 'Entrustable'
               }]
@@ -81,6 +91,39 @@ angular.module('appControllers').controller('dashboardCtrl', ['$scope','$routePa
     }, function errorCallback(response) {
       console.log("error")
   });
+
+  $http({
+    method: 'GET',
+    url: '/users/1/deltas'
+  }).then(function successCallback(response) {
+    console.log(response.data)
+    $scope.summaryDeltas = {
+      'Regressed' : [],
+      'Even' : [],
+      'Improved' : []
+    }
+    $scope.currentEPAs.forEach(function(element){
+      var avgTemp;
+      if(response.data[element.epaid-1]['count(*)'] != 0){
+        avgTemp = response.data[element.epaid-1]['SUM(newval)']/response.data[element.epaid-1]['count(*)'];
+        if(element.newval - avgTemp == 0){
+          $scope.summaryDeltas.Even.push(element.epaid);
+        }
+        else if(element.newval - avgTemp > 0){
+          $scope.summaryDeltas.Improved.push(element.epaid);
+        }
+        else{
+          $scope.summaryDeltas.Regressed.push(element.epaid);
+        }
+      }
+
+    });
+    console.log($scope.summaryDeltas);
+
+  }, function errorCallback(response) {
+    console.log("error")
+  });
+
   /*$scope.graphData = {
     //This will be replaced by a REST GET Call
   };
