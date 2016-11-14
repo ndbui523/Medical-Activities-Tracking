@@ -57,21 +57,21 @@ res.json({
   });
 });
 */
-router.get('/users/:id/summary',function(req,res){
-  //con.connect();
-  con.query('SELECT newval, MAX(uploaded) FROM EPAHistory WHERE uid = ? GROUP BY epaid', req.params.id, function(err, rows, fields)
-    {
-      if(err){
-        console.log('Connection result error '+err);
-      }
-      else{
-        console.log('no of records is '+rows.length);
-        res.writeHead(200, { 'Content-Type': 'application/json'});
-        res.json(JSON.stringify(rows));
-        res.end();
-      }
-  });
-});
+// router.get('/users/:id/summary',function(req,res){
+//   //con.connect();
+//   con.query('SELECT newval, MAX(uploaded) FROM EPAHistory WHERE uid = ? GROUP BY epaid', req.params.id, function(err, rows, fields)
+//     {
+//       if(err){
+//         console.log('Connection result error '+err);
+//       }
+//       else{
+//         console.log('no of records is '+rows.length);
+//         res.writeHead(200, { 'Content-Type': 'application/json'});
+//         res.json(JSON.stringify(rows));
+//         res.end();
+//       }
+//   });
+// });
 
 //
 //

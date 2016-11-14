@@ -2,11 +2,11 @@ angular.module('appControllers').controller('dashboardCtrl', ['$scope','$routePa
   $scope.epa = $routeParams.epa
   $scope.test = "Hello Details"
   $http({
-    method: 'GET', 
-    url: '/users/1/summary'
+    method: 'GET',
+    url: '/users/1'
     }).then(function successCallback(response) {
-      $scope.graphData=response.data;
-      console.log($scope.graphData);
+      $scope.graphData=response.data.graphData;
+      $scope.summaryDeltas=response.data.summaryDeltas;
       //$scope.summaryDeltas=response.data.summaryDeltas;
       $('#chart').highcharts({
           chart: {
