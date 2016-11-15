@@ -123,7 +123,7 @@ angular.module('appControllers').controller('epa-details-controller', ['$scope',
         },
         yAxis: {
             title: {
-                text: 'EPA ' + $scope.epa,
+                text: 'Mastery Level',
                 style: {
                   fontSize: '18px'
                 }

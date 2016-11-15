@@ -62,7 +62,7 @@ angular.module('appControllers').controller('dashboardCtrl', ['$scope','$routePa
               data: [{
                   name: 'Pre Entrustable',
                   y: $scope.graphData[1].length,
-                  color: '#880E4F'
+                  color: '#7E57C2'
                   //drilldown: 'Pre Entrustable'
               }, {
                   name: 'Mastery Level 2',
@@ -72,12 +72,12 @@ angular.module('appControllers').controller('dashboardCtrl', ['$scope','$routePa
               }, {
                   name: 'Mastery Level 3',
                   y: $scope.graphData[3].length,
-                  color: '#607D8B'
+                  color: '#7E57C2'
                   //drilldown: 'Level 3'
               }, {
                   name: 'Entrustable',
                   y: $scope.graphData[4].length,
-                  color: '#1565C0'
+                  color: '#7E57C2'
                   //drilldown: 'Entrustable'
               }]
           }],
