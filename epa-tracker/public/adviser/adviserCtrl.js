@@ -79,6 +79,18 @@ angular.module('appControllers').controller('adviserCtrl', ['$scope', '$routePar
         } ,
     ];
 
+    $scope.gradyears = [1, 2, 3];
+    $scope.curfilter = undefined;
+
+    $scope.changeFilter = function(vari){
+      if(vari == 0){
+        $scope.curfilter = undefined;
+      }
+      else{
+        $scope.curfilter = vari;
+      }
+    }
+
     $scope.sortBy = function(propertyName){
       if ($scope.property == propertyName){
         $scope.reverse = !$scope.reverse;

@@ -1,3 +1,28 @@
+.tab {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+/* Style the links inside the list items */
+.tabitem {
+  float: left;
+  display: inline-block;
+  color: black;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  transition: 0.3s;
+  font-size: 14px;
+}
+
+.tabitem:hover{
+  cursor: pointer;
+  color: blue;
+  text-decoration: underline;
+}
+
 body{
   background-color: #7BAFD4;
 }
@@ -45,10 +70,6 @@ body{
     cursor: pointer;
     background-color: black;
     color: white;
-}
-
-.glyphicon {
-  text-shadow: 0 4px 8px #BDBDBD;
 }
 
 .glyphicon.glyphicon-sort{
