@@ -1,5 +1,6 @@
 <div ng-controller="epa-details-controller">
   <div class="container-fluid">
+
     <div class = "row">
       <div class="col-xs-12 col-md-10 col-md-offset-1">
         <button type="button" id="headerHelp" class="glyphicon glyphicon-info-sign btn btn-link" data-toggle="modal" data-target="#helpModal" ng-click="displayHelp($event);"></button>
@@ -20,24 +21,13 @@
 
     <div class="flex-container">
       <div class="flex-item">
-        <button type="button" id="checklistHelp" class="glyphicon glyphicon-info-sign btn btn-link" data-toggle="modal" data-target="#helpModal" ng-click="displayHelp($event);"></button>
-        <h3 align="center">EPA {{epa}} Checklist</h3>
-        <ul ng-repeat="criteria in epaDetails.criteria">
-          <li class="detail-li">
-            {{criteria.mainCriteria}}
-            <ul ng-repeat="sub in criteria.subCriteria">
-              <li>
-                {{sub}}
-              </li>
-            </ul>
-          </li>
-        </ul>
+        <button type="button" id="examHelp" class="glyphicon glyphicon-info-sign btn btn-link" data-toggle="modal" data-target="#helpModal" ng-click="displayHelp($event);"></button>
+        <div id="line-chart" style="padding-top: 2%;"></div>
       </div>
 
       <div class="flex-item">
         <button type="button" id="examHelp" class="glyphicon glyphicon-info-sign btn btn-link" data-toggle="modal" data-target="#helpModal" ng-click="displayHelp($event);"></button>
-        <div id="line-chart" style="padding-top: 2%;"></div>
-        <h3 align="center">Your Recent Assesments</h3>
+        <h3 align="center">Your Recent Assessments</h3>
           <table class="table test-data">
             <tr ng-repeat="test in testInfo">
               <td class="test-name">
@@ -65,6 +55,24 @@
           </table>
       </div>
     </div>
+
+    <div class = "row">
+      <div class="col-xs-12 col-md-10 col-md-offset-1">
+        <button type="button" id="checklistHelp" class="glyphicon glyphicon-info-sign btn btn-link" data-toggle="modal" data-target="#helpModal" ng-click="displayHelp($event);"></button>
+        <h3 align="center">EPA {{epa}} Checklist</h3>
+        <ul ng-repeat="criteria in epaDetails.criteria">
+          <li class="detail-li">
+            {{criteria.mainCriteria}}
+            <ul ng-repeat="sub in criteria.subCriteria">
+              <li>
+                {{sub}}
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+
   </div>
 
   <div id="examModal" class="modal fade" role="dialog">

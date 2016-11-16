@@ -17,7 +17,6 @@ angular.module('appControllers').controller('dashboardCtrl', ['$scope','$routePa
         var temp = element.newval;
         $scope.graphData[temp].push(element.epaid);
       });
-      //$scope.summaryDeltas=response.data.summaryDeltas;
       $('#chart').highcharts({
           chart: {
               type: 'column',
@@ -63,7 +62,7 @@ angular.module('appControllers').controller('dashboardCtrl', ['$scope','$routePa
               data: [{
                   name: 'Pre Entrustable',
                   y: $scope.graphData[1].length,
-                  color: '#880E4F'
+                  color: '#7E57C2'
                   //drilldown: 'Pre Entrustable'
               }, {
                   name: 'Mastery Level 2',
@@ -73,12 +72,12 @@ angular.module('appControllers').controller('dashboardCtrl', ['$scope','$routePa
               }, {
                   name: 'Mastery Level 3',
                   y: $scope.graphData[3].length,
-                  color: '#607D8B'
+                  color: '#7E57C2'
                   //drilldown: 'Level 3'
               }, {
                   name: 'Entrustable',
                   y: $scope.graphData[4].length,
-                  color: '#1565C0'
+                  color: '#7E57C2'
                   //drilldown: 'Entrustable'
               }]
           }],
@@ -135,13 +134,15 @@ angular.module('appControllers').controller('dashboardCtrl', ['$scope','$routePa
   $scope.helpText = "This is placeholder text"
   $scope.displayHelp = function(event){
     if(event.target.id == "chartHelp"){
-      $scope.helpText = "chart";
+      $scope.helpText = "This section displays a bar graph of the levels of the student's EPAs."+
+        "\r\nEPAs range between 1 (not entrustable) and 4 (entrustable), and mastery levels vary based on the difficulty of work students are exposed to.";
     }
     if(event.target.id == "regHelp"){
-      $scope.helpText = "Regressed";
+      $scope.helpText = "This section details the number of EPAs that have regressed or improved since the last reporting period.";
     }
     if(event.target.id == "listHelp"){
-      $scope.helpText = "list";
+      $scope.helpText = "This section is a detailed combination of the above two; EPAs are listed based on mastery level and improvements and regressions are indicated." +
+        "\r\nClick on an EPA to show the details page for that EPA.";
     }
   }
 }]);
