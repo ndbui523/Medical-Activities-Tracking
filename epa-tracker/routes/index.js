@@ -29,22 +29,6 @@ router.get('/details/:epa',function(req,res) {
   res.json(epaDetails.EPAs[req.params.epa-1])
 });
 
-router.get('/users/1',function(req,res) {
-  res.json({
-    graphData:{
-      'PreEntrustable': [1,3,2,5],
-      'Mastery2': [4,13,11,7,6],
-      'Mastery3': [8,9,12],
-      'Entrustable': [10]
-    },
-    summaryDeltas:{
-      'Regressed': [11],
-      'Even': [1,2,3,4,5,6,7,10,12,13],
-      'Improved': [8,9]
-    }
-  });
-});
-
 router.get('/users/:id/deltas',function(req,res){
   con.query('SELECT SUM(newval), epaid, count(*) FROM EPAHistory WHERE student = ? GROUP BY epaid', req.params.id, function(err, rows, fields)
   {
@@ -75,20 +59,39 @@ router.get('/users/:id/summary',function(req,res){
     }
   });
 });
-//
-//
-//
-// router.get('/advisers/:id',function(req,res){
-//   connection.connect();
-//   connection.query('SELECT student FROM advisees WHERE advisor = ?', req.params.id, function(err, rows, fields)
-//   {
-//           console.log('Connection result error '+err);
-//           console.log('no of records is '+rows.length);
-//           res.writeHead(200, { 'Content-Type': 'application/json'});
-//           res.end(JSON.stringify(rows));
-//   });
-// });
-//
+
+
+
+router.get('/adviser/:id/advisees',function(req,res){
+  con.query('SELECT fname, lname, email, uid, year FROM Users u WHERE u.advisorid = ?', req.params.id, function(err, rows, fields)
+  {
+    if(err){
+      console.log('Connection result error '+err);
+    }
+    else{
+      console.log('no of records is '+rows.length);
+      res.set({'Content-Type':'text/json'});
+      res.send(JSON.stringify(rows));
+      res.end();
+    }
+  });
+});
+
+router.get('/adviser/:id',function(req,res){
+  con.query('SELECT fname, lname, permissions FROM Users WHERE uid = ?', req.params.id, function(err, rows, fields)
+  {
+    if(err){
+      console.log('Connection result error '+err);
+    }
+    else{
+      console.log('no of records is '+rows.length);
+      res.set({'Content-Type':'text/json'});
+      res.send(JSON.stringify(rows));
+      res.end();
+    }
+  });
+});
+
 // router.get('/tests/:id/:epa',function(req,res){
 //   connection.connect();
 //   connection.query('SELECT title, uploaded, newval  FROM EPAHistory WHERE student = ? AND epaid = ? SORT BY updated datetime LIMIT 10', req.params.id, req.params.epa function(err, rows, fields)

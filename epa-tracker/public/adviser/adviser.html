@@ -4,7 +4,7 @@
       <div class="col-xs-12 col-md-10 col-md-offset-1">
         <button type="button" id="adviserHelp" class="glyphicon glyphicon-info-sign btn btn-link" data-toggle="modal" data-target="#helpModal" ng-click="displayHelp($event);"></button>
         <h1 align="center">
-          Ana Felix
+          {{adviser}}
         </h1>
       </div>
     </div>
@@ -13,7 +13,7 @@
         <ul class="tab">
           <li class="tabitem" ng-click="changeFilter(0)">All Students</li>
           <div ng-repeat="gradyear in gradyears">
-            <li class="tabitem" ng-click="changeFilter(gradyear)">Grade {{gradyear}}</li>
+            <li class="tabitem" ng-click="changeFilter(gradyear)">Year {{gradyear}}</li>
           </div>
         </ul>
 
@@ -29,10 +29,10 @@
               Regressed <span class="glyphicon glyphicon-arrow-down" style="color: #D32F2F;"></span>
             </th>
           </tr>
-          <tr ng-repeat="advisee in advisees | filter: {grade: curfilter} |orderBy:property:reverse">
-            <td><a href="/#/">{{advisee.lastName + ', ' + advisee.firstName}}</a></td>
+          <tr ng-repeat="advisee in advisees | filter: {year: curfilter} |orderBy:property:reverse">
+            <td><a href="/#/{{advisee.uid}}">{{advisee.lname + ', ' + advisee.fname}}</a></td>
             <td>{{advisee.email}}</td>
-            <td style="text-align: center;">{{advisee.grade}}</td >
+            <td style="text-align: center;">{{advisee.year}}</td >
             <td ng-class="advisee.improved >= threshold ? 'urgent-green' : ''" style="text-align: center;">
               <div ng-if="advisee.improved >= threshold">
                 <b>{{advisee.improved}}</b>

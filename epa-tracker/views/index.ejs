@@ -6,15 +6,19 @@
 	<script src="javascripts/jquery.min.js"></script>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>	<script src="https://code.highcharts.com/highcharts.js"></script>
-  <script src="https://code.highcharts.com/modules/data.js"></script>
+	<script src="https://code.highcharts.com/modules/data.js"></script>
   <script src="https://code.highcharts.com/modules/drilldown.js"></script>
 	<link rel="stylesheet" href="stylesheets/style.css" />
 	<script src="javascripts/angular.min.js"></script>
 	<script src="javascripts/angular-route.js"></script>
+	<script src="javascripts/angular-animate.min.js"></script>
+	<script src="javascripts/angular-touch.min.js"></script>
 	<script src="javascripts/angularApp.js"></script>
   <script src="dashboard/dashboardCtrl.js"></script>
 	<script src="details/epa-details-controller.js"></script>
 	<script src="adviser/adviserCtrl.js"></script>
+	<script src="navbar/navbarCtrl.js"></script>
+	<script src="services/userService.js"></script>
 
 </head>
 <body>
@@ -26,10 +30,10 @@
 	    </div>
 
 	    <!-- Collect the nav links, forms, and other content for toggling -->
-	    <div class="collapse navbar-collapse" id="example-navbar-collapse-1">
+	    <div class="collapse navbar-collapse" id="example-navbar-collapse-1" ng-controller="navbarCtrl">
 	      <ul class="nav navbar-nav">
-	        <li><a href="#/">Dashboard <span class="sr-only">Dashboard</span></a></li>
-					<li><a href="#/adviser/1">Adviser<span class="sr-only">Adviser</span></a></li>
+	        <li><a href="#/"+{{username}}>Dashboard <span class="sr-only">Dashboard</span></a></li>
+					<li><a href="#/adviser/"+{{username}}>Adviser<span class="sr-only">Adviser</span></a></li>
 	      </ul>
 	    </div><!-- /.navbar-collapse -->
 	  </div><!-- /.container-fluid -->

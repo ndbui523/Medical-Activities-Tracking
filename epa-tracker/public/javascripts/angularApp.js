@@ -1,17 +1,17 @@
 angular.module('appControllers',[]);
-var myApp = angular.module('myApp', ['appControllers','ngRoute']);
+var myApp = angular.module('myApp', ['appControllers','ngRoute','ui.bootstrap']);
 
 //Routing
 myApp.config(['$routeProvider', function($routeProvider) {
   $routeProvider
-  .when('/', {
+  .when('/:id', {
     templateUrl : '/dashboard/dashboard.html',
   })
-  .when('/details/:epa',{
+  .when('/:id/details/:epa',{
     templateUrl : '/details/epa-details.html',
     caseInsensitiveMatch: true
   })
-  .when('/adviser/:adviser',{
+  .when('/adviser/:id',{
     templateUrl : '/adviser/adviser.html',
     caseInsensitiveMatch: true
   })

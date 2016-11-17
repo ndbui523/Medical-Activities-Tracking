@@ -13,7 +13,7 @@ angular.module('appControllers').controller('epa-details-controller', ['$scope',
 
   $http({
     method: 'GET',
-    url: '/users/1/summary'
+    url: '/users/'+$routeParams.id+'/summary'
   }).then(function successCallback(response) {
       $scope.currentEPAs = response.data;
       console.log($scope.currentEPAs)
@@ -23,7 +23,7 @@ angular.module('appControllers').controller('epa-details-controller', ['$scope',
 
   $http({
     method: 'GET',
-    url: '/users/1/deltas'
+    url: '/users/'+$routeParams.id+'/deltas'
   }).then(function successCallback(response) {
     console.log(response.data)
     $scope.summaryDeltas = {
@@ -47,7 +47,6 @@ angular.module('appControllers').controller('epa-details-controller', ['$scope',
       }
 
     });
-    console.log($scope.summaryDeltas);
 
     if($.inArray(Number($scope.epa),$scope.summaryDeltas.Improved) != -1) {
       $scope.deltaText = 'Your level in this EPA has risen since the last examination.'

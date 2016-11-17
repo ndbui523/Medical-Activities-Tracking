@@ -1,9 +1,9 @@
 angular.module('appControllers').controller('dashboardCtrl', ['$scope','$routeParams','$http',function($scope,$routeParams,$http){
-  $scope.epa = $routeParams.epa
-  $scope.test = "Hello Details"
+  $scope.id = $routeParams.id;
+  console.log($scope.id)
   $http({
     method: 'GET',
-    url: '/users/1/summary'
+    url: '/users/'+$routeParams.id+'/summary'
   }).then(function successCallback(response) {
       $scope.currentEPAs = response.data;
       console.log($scope.currentEPAs)
@@ -93,9 +93,8 @@ angular.module('appControllers').controller('dashboardCtrl', ['$scope','$routePa
 
   $http({
     method: 'GET',
-    url: '/users/1/deltas'
+    url: '/users/'+$routeParams.id+'/deltas'
   }).then(function successCallback(response) {
-    console.log(response.data)
     $scope.summaryDeltas = {
       'Regressed' : [],
       'Even' : [],
@@ -117,7 +116,6 @@ angular.module('appControllers').controller('dashboardCtrl', ['$scope','$routePa
       }
 
     });
-    console.log($scope.summaryDeltas);
 
   }, function errorCallback(response) {
     console.log("error")
