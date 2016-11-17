@@ -1,5 +1,10 @@
 angular.module('appControllers').controller('dashboardCtrl', ['$scope','$routeParams','$http',function($scope,$routeParams,$http){
   $scope.id = $routeParams.id;
+  $scope.summaryDeltas = {
+    'Regressed' : [],
+    'Even' : [],
+    'Improved' : []
+  }
   $http({
     method: 'GET',
     url: '/users/'+$routeParams.id,
@@ -14,16 +19,47 @@ angular.module('appControllers').controller('dashboardCtrl', ['$scope','$routePa
     url: '/users/'+$routeParams.id+'/summary'
   }).then(function successCallback(response) {
       $scope.currentEPAs = response.data;
+      console.log($scope.currentEPAs)
+
       $scope.graphData = {
         '1' : [],
         '2' : [],
         '3' : [],
         '4' : []
       };
+
       $scope.currentEPAs.forEach(function(element){
         var temp = element.newval;
         $scope.graphData[temp].push(element.epaid);
+
+        $http({
+          method: 'GET',
+          url: '/tests/'+$routeParams.id+'/'+element.epaid
+        }).then(function successCallback(response) {
+          if(response.data.length != 0){
+            var total = 0;
+            response.data.forEach(function(element){
+              total+=element.newval;
+            });
+
+            var avgTemp = total/response.data.length;
+
+            if(element.newval - avgTemp < -0.4){
+              $scope.summaryDeltas.Regressed.push(element.epaid);
+            }
+            else if(element.newval - avgTemp > 0.4){
+              $scope.summaryDeltas.Improved.push(element.epaid);
+            }
+            else{
+              $scope.summaryDeltas.Even.push(element.epaid);
+            }
+          }
+        }, function errorCallback(response) {
+          console.log("error")
+        });
+
       });
+
       $('#chart').highcharts({
           chart: {
               type: 'column',
@@ -98,42 +134,9 @@ angular.module('appControllers').controller('dashboardCtrl', ['$scope','$routePa
       console.log("error")
   });
 
-  $http({
-    method: 'GET',
-    url: '/users/'+$routeParams.id+'/deltas'
-  }).then(function successCallback(response) {
-    $scope.summaryDeltas = {
-      'Regressed' : [],
-      'Even' : [],
-      'Improved' : []
-    }
-    $scope.currentEPAs.forEach(function(element){
-      var avgTemp;
-      if(response.data[element.epaid-1]['count(*)'] != 0){
-        avgTemp = response.data[element.epaid-1]['SUM(newval)']/response.data[element.epaid-1]['count(*)'];
-        if(element.newval - avgTemp == 0){
-          $scope.summaryDeltas.Even.push(element.epaid);
-        }
-        else if(element.newval - avgTemp > 0){
-          $scope.summaryDeltas.Improved.push(element.epaid);
-        }
-        else{
-          $scope.summaryDeltas.Regressed.push(element.epaid);
-        }
-      }
 
-    });
 
-  }, function errorCallback(response) {
-    console.log("error")
-  });
 
-  /*$scope.graphData = {
-    //This will be replaced by a REST GET Call
-  };
-  $scope.summaryDeltas = {
-
-  };*/
 
   //Modal Text
   $scope.helpText = "This is placeholder text"

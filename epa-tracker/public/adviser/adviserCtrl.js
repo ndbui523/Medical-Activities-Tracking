@@ -2,6 +2,7 @@ angular.module('appControllers').controller('adviserCtrl', ['$scope', '$routePar
     $scope.threshold = 3;
     $scope.reverse = true;
     $scope.property = 'regressed';
+    $scope.gradyears = [];
 
     $http({
       method: 'GET',
@@ -15,6 +16,11 @@ angular.module('appControllers').controller('adviserCtrl', ['$scope', '$routePar
         }).then(function successCallback(response) {
           $scope.advisees = response.data;
           $scope.advisees.forEach(function(element){
+
+            if($.inArray(element.year,$scope.gradyears) == -1) {
+              $scope.gradyears.push(element.year);
+            }
+
             $http({
               method: 'GET',
               url: '/users/'+element.uid+'/summary'
@@ -47,6 +53,8 @@ angular.module('appControllers').controller('adviserCtrl', ['$scope', '$routePar
                 console.log("error")
             });
           });
+
+          $scope.gradyears.sort();
         }, function errorCallback(response) {
           console.log("error")
         });
@@ -61,7 +69,6 @@ angular.module('appControllers').controller('adviserCtrl', ['$scope', '$routePar
       console.log("error getting adviser")
     });
 
-    $scope.gradyears = [1, 2, 3];
     $scope.curfilter = undefined;
 
     $scope.changeFilter = function(vari){
@@ -89,80 +96,5 @@ angular.module('appControllers').controller('adviserCtrl', ['$scope', '$routePar
         "\r\nClick on a field to sort by that field. Students with high numbers of improved or regressed EPAs will appear highlighted.";
       }
     }
-
-    // $scope.advisees = [
-    //     {
-    //       'firstName' : 'Lindsay',
-    //       'lastName' : 'Krinkle',
-    //       'email' : 'lkrinkle@fakeemail.com',
-    //       'grade' : 3,
-    //       'adviser' : 'Ana Felix',
-    //       'improved' : 2,
-    //       'regressed' : 1,
-    //     } ,
-    //     {
-    //       'firstName' : 'Gary',
-    //       'lastName' : 'Nicolson',
-    //       'email' : 'gnicolson@fakeemail.com',
-    //       'grade' : 1,
-    //       'adviser' : 'Ana Felix',
-    //       'improved' : 1,
-    //       'regressed' : 4,
-    //     } ,
-    //     {
-    //       'firstName' : 'Tod',
-    //       'lastName' : 'Radcliff',
-    //       'email' : 'tradcliff@fakeemail.com',
-    //       'grade' : 1,
-    //       'adviser' : 'Ana Felix',
-    //       'improved' : 3,
-    //       'regressed' : 2,
-    //     } ,
-    //     {
-    //       'firstName' : 'Jonnie',
-    //       'lastName' : 'Morris',
-    //       'email' : 'jmorris@fakeemail.com',
-    //       'grade' : 2,
-    //       'adviser' : 'Ana Felix',
-    //       'improved' : 3,
-    //       'regressed' : 0,
-    //     } ,
-    //     {
-    //       'firstName' : 'Austin',
-    //       'lastName' : 'Fern',
-    //       'email' : 'afern@fakeemail.com',
-    //       'grade' : 2,
-    //       'adviser' : 'Ana Felix',
-    //       'improved' : 1,
-    //       'regressed' : 1,
-    //     } ,
-    //     {
-    //       'firstName' : 'Paulene',
-    //       'lastName' : 'Myles',
-    //       'email' : 'pmyles@fakeemail.com',
-    //       'grade' : 2,
-    //       'adviser' : 'Ana Felix',
-    //       'improved' : 2,
-    //       'regressed' : 1,
-    //     } ,
-    //     {
-    //       'firstName' : 'Melissa',
-    //       'lastName' : 'Vernon',
-    //       'email' : 'mvernon@fakeemail.com',
-    //       'grade' : 3,
-    //       'adviser' : 'Ana Felix',
-    //       'improved' : 3,
-    //       'regressed' : 0,
-    //     } ,
-    //     {
-    //       'firstName' : 'Rita',
-    //       'lastName' : 'Jiggers',
-    //       'email' : 'rjiggers@fakeemail.com',
-    //       'grade' : 3,
-    //       'adviser' : 'Ana Felix',
-    //       'improved' : 0,
-    //       'regressed' : 3,
-    //     } ,
-    // ];
 
 }]);

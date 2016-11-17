@@ -2,6 +2,8 @@ angular.module('appControllers').controller('epa-details-controller', ['$scope',
   $scope.epa = $routeParams.epa
   $scope.deltaText = "";
   $scope.deltaArrow = "even"
+  $scope.mastery;
+
   $http({
   method: 'GET',
   url: '/details/' + $scope.epa
@@ -16,53 +18,42 @@ angular.module('appControllers').controller('epa-details-controller', ['$scope',
     url: '/users/'+$routeParams.id+'/summary'
   }).then(function successCallback(response) {
       $scope.currentEPAs = response.data;
-      console.log($scope.currentEPAs)
+      $scope.currentEPAs.forEach(function(element){
+        if(element.epaid == $scope.epa){
+          $scope.mastery = element.newval;
+        }
+      });
+
+      $http({
+        method: 'GET',
+        url: '/tests/'+$routeParams.id+'/'+$scope.epa
+      }).then(function successCallback(response) {
+        if(response.data.length != 0){
+          var total = 0;
+          response.data.forEach(function(element){
+            total+=element.newval;
+          });
+
+          var avgTemp = total/response.data.length;
+
+          if($scope.mastery - avgTemp < -0.4){
+            $scope.deltaText = 'Your level in this EPA has fallen since the last examination.';
+            $scope.deltaArrow = 'down'
+          }
+          else if($scope.mastery - avgTemp > 0.4){
+            $scope.deltaText = 'Your level in this EPA has risen since the last examination.'
+            $scope.deltaArrow = 'up'
+          }
+          else{
+            $scope.deltaText = 'Your level in this EPA has stayed the same since the last examination.';
+            $scope.deltaArrow = 'even'
+          }
+        }
+      }, function errorCallback(response) {
+        console.log("error")
+      });
   }, function errorCallback(response) {
-      console.log("error")
-  });
-
-  $http({
-    method: 'GET',
-    url: '/users/'+$routeParams.id+'/deltas'
-  }).then(function successCallback(response) {
-    console.log(response.data)
-    $scope.summaryDeltas = {
-      'Regressed' : [],
-      'Even' : [],
-      'Improved' : []
-    }
-    $scope.currentEPAs.forEach(function(element){
-      var avgTemp;
-      if(response.data[element.epaid-1]['count(*)'] != 0){
-        avgTemp = response.data[element.epaid-1]['SUM(newval)']/response.data[element.epaid-1]['count(*)'];
-        if(element.newval - avgTemp == 0){
-          $scope.summaryDeltas.Even.push(element.epaid);
-        }
-        else if(element.newval - avgTemp > 0){
-          $scope.summaryDeltas.Improved.push(element.epaid);
-        }
-        else{
-          $scope.summaryDeltas.Regressed.push(element.epaid);
-        }
-      }
-
-    });
-
-    if($.inArray(Number($scope.epa),$scope.summaryDeltas.Improved) != -1) {
-      $scope.deltaText = 'Your level in this EPA has risen since the last examination.'
-      $scope.deltaArrow = 'up'
-    }
-    else if($.inArray(Number($scope.epa),$scope.summaryDeltas.Even) != -1) {
-      $scope.deltaText = 'Your level in this EPA has stayed the same since the last examination.';
-      $scope.deltaArrow = 'even'
-    }
-    else {
-      $scope.deltaText = 'Your level in this EPA has fallen since the last examination.';
-      $scope.deltaArrow = 'down'
-    }
-
-  }, function errorCallback(response) {
-    console.log("error")
+    console.log("error in /users/:id/summary");
   });
 
     $scope.testInfo = [
