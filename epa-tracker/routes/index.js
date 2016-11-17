@@ -63,7 +63,7 @@ router.get('/users/:id/summary',function(req,res){
 
 
 router.get('/adviser/:id/advisees',function(req,res){
-  con.query('SELECT fname, lname, email, uid, year FROM Users u WHERE u.advisorid = ?', req.params.id, function(err, rows, fields)
+  con.query('SELECT fname, lname, email, uid, year FROM Users u WHERE u.adviserid = ?', req.params.id, function(err, rows, fields)
   {
     if(err){
       console.log('Connection result error '+err);
@@ -77,7 +77,7 @@ router.get('/adviser/:id/advisees',function(req,res){
   });
 });
 
-router.get('/adviser/:id',function(req,res){
+router.get('/users/:id',function(req,res){
   con.query('SELECT fname, lname, permissions FROM Users WHERE uid = ?', req.params.id, function(err, rows, fields)
   {
     if(err){

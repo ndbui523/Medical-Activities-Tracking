@@ -1,12 +1,19 @@
 angular.module('appControllers').controller('dashboardCtrl', ['$scope','$routeParams','$http',function($scope,$routeParams,$http){
   $scope.id = $routeParams.id;
-  console.log($scope.id)
+  $http({
+    method: 'GET',
+    url: '/users/'+$routeParams.id,
+  }).then(function successCallback(response) {
+    $scope.name = response.data[0].fname + " " + response.data[0].lname
+  }, function errorCallback(response) {
+    console.log("error loading user "+$routeParams.id)
+  });
+
   $http({
     method: 'GET',
     url: '/users/'+$routeParams.id+'/summary'
   }).then(function successCallback(response) {
       $scope.currentEPAs = response.data;
-      console.log($scope.currentEPAs)
       $scope.graphData = {
         '1' : [],
         '2' : [],

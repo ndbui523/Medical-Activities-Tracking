@@ -5,7 +5,7 @@ angular.module('appControllers').controller('adviserCtrl', ['$scope', '$routePar
 
     $http({
       method: 'GET',
-      url: '/adviser/'+$routeParams.id,
+      url: '/users/'+$routeParams.id,
     }).then(function successCallback(response) {
       $scope.adviser = response.data[0].fname + ' ' + response.data[0].lname;
       if (response.data[0].permissions == 1){
@@ -47,7 +47,6 @@ angular.module('appControllers').controller('adviserCtrl', ['$scope', '$routePar
                 console.log("error")
             });
           });
-          console.log($scope.advisees);
         }, function errorCallback(response) {
           console.log("error")
         });
