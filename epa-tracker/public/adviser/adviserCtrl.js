@@ -21,37 +21,44 @@ angular.module('appControllers').controller('adviserCtrl', ['$scope', '$routePar
               $scope.gradyears.push(element.year);
             }
 
+            element['improved'] = 0;
+            element['regressed'] = 0;
             $http({
               method: 'GET',
               url: '/users/'+element.uid+'/summary'
             }).then(function successCallback(response) {
                 $scope.currentEPAs = response.data;
+                $scope.currentEPAs.forEach(function(element2){
+
+                  $http({
+                    method: 'GET',
+                    url: '/tests/'+element.uid+'/'+element2.epaid
+                  }).then(function successCallback(response) {
+                    console.log("hi")
+                    if(response.data.length != 0){
+                      var total = 0;
+                      response.data.forEach(function(element3){
+                        total+=element3.newval;
+                      });
+
+                      var avgTemp = total/response.data.length;
+
+                      if(element2.newval - avgTemp < -0.4){
+                        element['regressed']++;
+                      }
+                      else if(element2.newval - avgTemp > 0.4){
+                        element['improved']++;
+                      }
+                    }
+                  }, function errorCallback(response) {
+                    console.log("error")
+                  });
+
+                });
             }, function errorCallback(response) {
                 console.log("error")
             });
 
-            $http({
-              method: 'GET',
-              url: '/users/'+element.uid+'/deltas'
-            }).then(function successCallback(response) {
-              element['improved'] = 0;
-              element['regressed'] = 0;
-
-              $scope.currentEPAs.forEach(function(element2){
-                var avgTemp;
-                if(response.data[element2.epaid-1]['count(*)'] != 0){
-                  avgTemp = response.data[element2.epaid-1]['SUM(newval)']/response.data[element2.epaid-1]['count(*)'];
-                  if(element2.newval - avgTemp > 0){
-                    element['improved']++;
-                  }
-                  else if(element2.newval - avgTemp < 0){
-                    element['regressed']++;
-                  }
-                }
-              });
-            }, function errorCallback(response) {
-                console.log("error")
-            });
           });
 
           $scope.gradyears.sort();
