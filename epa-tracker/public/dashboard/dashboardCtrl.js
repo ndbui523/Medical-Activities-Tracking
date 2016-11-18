@@ -19,7 +19,7 @@ angular.module('appControllers').controller('dashboardCtrl', ['$scope','$routePa
     url: '/users/'+$routeParams.id+'/summary'
   }).then(function successCallback(response) {
       $scope.currentEPAs = response.data;
-      console.log($scope.currentEPAs)
+      //console.log($scope.currentEPAs)
 
       $scope.graphData = {
         '1' : [],

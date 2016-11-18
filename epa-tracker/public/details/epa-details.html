@@ -31,12 +31,12 @@
           <table class="table test-data">
             <tr ng-repeat="test in testInfo">
               <td class="test-name">
-                {{test.name}}
+                {{test.title}}
                 <br>
-                {{test.date}}
+                {{test.uploaded}}
               </td>
               <td class="test-score">
-                {{test.score + "%"}}
+                {{test.newval}}
               </td>
               <td class="test-delta">
                 <div ng-if="test.delta == 'up'">

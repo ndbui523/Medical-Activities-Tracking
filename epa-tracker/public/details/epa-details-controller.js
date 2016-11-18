@@ -3,6 +3,7 @@ angular.module('appControllers').controller('epa-details-controller', ['$scope',
   $scope.deltaText = "";
   $scope.deltaArrow = "even"
   $scope.mastery;
+  $scope.testInfo = [];
 
   $http({
   method: 'GET',
@@ -56,99 +57,170 @@ angular.module('appControllers').controller('epa-details-controller', ['$scope',
     console.log("error in /users/:id/summary");
   });
 
-    $scope.testInfo = [
-      {
-        'name' : 'Piedmont Health Services Rotation',
-        'date' : 'May 05 2016',
-        'score' : 95,
-        'delta' : 'up',
-        'newVal' : 3
-      },
+  $http({
+    method: 'GET',
+    url: '/tests/'+$routeParams.id+'/'+$scope.epa
+  }).then(function successCallback(response) {
+    var tempres = response.data;
+    console.log(tempres);
+    var running = 0;
+    var num = 0;
+    tempres.forEach(function(element){
+      //need to compute a delta
+      element.delta = 'up';
+      //
+      running += element.newval;
+      num += 1;
 
-      {
-        'name' : 'Piedmont Health Services Rotation',
-        'date' : 'April 25 2016',
-        'score' : 79,
-        'delta' : 'even',
-        'newVal' : 2
-      },
+      $scope.testInfo.push(element);
+    });
 
-      {
-        'name' : 'Piedmont Health Services Rotation',
-        'date' : 'Jan 09 2016',
-        'score' : 65,
-        'delta' : 'down',
-        'newVal' : 2
-      },
-
-      {
-        'name' : 'Piedmont Health Services Rotation',
-        'date' : 'Sept 14 2015',
-        'score' : 90,
-        'delta' : 'up',
-        'newVal' : 3
-      }
-    ];
 
     var testDates = []
     var testScores = []
     $.each($scope.testInfo, function(){
-      testDates.push(this.date);
-      testScores.push(this.newVal);
+      testDates.push(this.uploaded);
+      testScores.push(this.newval);
     });
 
+    console.log(testDates);
+    console.log(testScores);
     $('#line-chart').highcharts({
-        chart: {
-          backgroundColor:'transparent'
-        },
-        title: {
-            text: 'Recent Exam Trends',
-            style: {
-              fontSize: '24px'
-            }
-
-        },
-        xAxis: {
-            categories: testDates.reverse()
-        },
-        yAxis: {
-            title: {
-                text: 'Mastery Level',
-                style: {
-                  fontSize: '18px'
-                }
-            },
-            plotLines: [{
-                value: 0,
-                width: 1,
-                color: '#808080'
-            }],
-            min: 1,
-            max: 4,
-            tickInterval: 1
-        },
-        credits: {
-          enabled: false
-        },
-        series: [{
-            //name: 'Tokyo',
-            showInLegend: false,
-            data: testScores.reverse()
-        }]
+      chart: {
+        backgroundColor:'transparent'
+      },
+      title: {
+          text: 'Recent Exam Trends',
+          style: {
+            fontSize: '24px'
+          }
+      },
+      xAxis: {
+          categories: testDates.reverse()
+      },
+      yAxis: {
+          title: {
+              text: 'Mastery Level',
+              style: {
+                fontSize: '18px'
+              }
+          },
+          plotLines: [{
+              value: 0,
+              width: 1,
+              color: '#808080'
+          }],
+          min: 1,
+          max: 4,
+          tickInterval: 1
+      },
+      credits: {
+        enabled: false
+      },
+      series: [{
+          //name: 'Tokyo',
+          showInLegend: false,
+          data: testScores.reverse()
+      }]
     });
 
-    $scope.helpText = "This is placeholder text"
-    $scope.displayHelp = function(event){
-      if(event.target.id == "headerHelp"){
-        $scope.helpText = "This is the EPA details page for EPA" + $scope.epa + "." +
-          "\r\nThis section shows a general overview of student progress on an EPA.";
-      }
-      if(event.target.id == "examHelp"){
-        $scope.helpText = "This section contains a list and line graph of the 10 most recent grades that have affected the EPA evaluation for a student." +
-          "\r\nThe list items include the exam/rotation name and date, the evaluation and effect on EPA mastery level by that item, and a link to all comments for that item.";
-      }
-      if(event.target.id == "checklistHelp"){
-        $scope.helpText = "This section details the checklist of activities that an entrustable student is expected to be able to perform under EPA" + $scope.epa + ".";
-      }
+  }, function errorCallback(response) {
+    console.log("error");
+  });
+
+  // $scope.testInfo = [
+  //   {
+  //     'name' : 'Piedmont Health Services Rotation',
+  //     'date' : 'May 05 2016',
+  //     'score' : 95,
+  //     'delta' : 'up',
+  //     'newVal' : 3
+  //   },
+  //
+  //   {
+  //     'name' : 'Piedmont Health Services Rotation',
+  //     'date' : 'April 25 2016',
+  //     'score' : 79,
+  //     'delta' : 'even',
+  //     'newVal' : 2
+  //   },
+  //
+  //   {
+  //     'name' : 'Piedmont Health Services Rotation',
+  //     'date' : 'Jan 09 2016',
+  //     'score' : 65,
+  //     'delta' : 'down',
+  //     'newVal' : 2
+  //   },
+  //
+  //   {
+  //     'name' : 'Piedmont Health Services Rotation',
+  //     'date' : 'Sept 14 2015',
+  //     'score' : 90,
+  //     'delta' : 'up',
+  //     'newVal' : 3
+  //   }
+  // ];
+
+  // var testDates = []
+  // var testScores = []
+  // $.each($scope.testInfo, function(){
+  //   testDates.push(this.uploaded);
+  //   testScores.push(this.newVal);
+  // });
+  //
+  // $('#line-chart').highcharts({
+  //   chart: {
+  //     backgroundColor:'transparent'
+  //   },
+  //   title: {
+  //       text: 'Recent Exam Trends',
+  //       style: {
+  //         fontSize: '24px'
+  //       }
+  //
+  //   },
+  //   xAxis: {
+  //       categories: testDates.reverse()
+  //   },
+  //   yAxis: {
+  //       title: {
+  //           text: 'Mastery Level',
+  //           style: {
+  //             fontSize: '18px'
+  //           }
+  //       },
+  //       plotLines: [{
+  //           value: 0,
+  //           width: 1,
+  //           color: '#808080'
+  //       }],
+  //       min: 1,
+  //       max: 4,
+  //       tickInterval: 1
+  //   },
+  //   credits: {
+  //     enabled: false
+  //   },
+  //   series: [{
+  //       //name: 'Tokyo',
+  //       showInLegend: false,
+  //       data: testScores.reverse()
+  //   }]
+  // });
+
+  $scope.helpText = "This is placeholder text"
+  $scope.displayHelp = function(event){
+    if(event.target.id == "headerHelp"){
+      $scope.helpText = "This is the EPA details page for EPA" + $scope.epa + "." +
+        "\r\nThis section shows a general overview of student progress on an EPA.";
     }
+    if(event.target.id == "examHelp"){
+      $scope.helpText = "This section contains a list and line graph of the 10 most recent grades that have affected the EPA evaluation for a student." +
+        "\r\nThe list items include the exam/rotation name and date, the evaluation and effect on EPA mastery level by that item, and a link to all comments for that item.";
+    }
+    if(event.target.id == "checklistHelp"){
+      $scope.helpText = "This section details the checklist of activities that an entrustable student is expected to be able to perform under EPA" + $scope.epa + ".";
+    }
+  }
 }]);
