@@ -30,7 +30,7 @@ router.get('/details/:epa',function(req,res) {
 });
 
 router.get('/tests/:id/:epa',function(req,res){
-  con.query('SELECT * FROM EPAHistory  WHERE student = ? AND epaid = ? ORDER BY uploaded desc LIMIT 10', [req.params.id,req.params.epa], function(err, rows, fields)
+  con.query('SELECT * FROM EPAHistory  WHERE student = ? AND epaid = ? ORDER BY examdate desc LIMIT 10', [req.params.id,req.params.epa], function(err, rows, fields)
   {
     if(err){
       console.log('Connection result error '+err);
@@ -46,7 +46,7 @@ router.get('/tests/:id/:epa',function(req,res){
 
 router.get('/users/:id/summary',function(req,res){
   //con.connect();
-  con.query('select H.* from `EPAHistory` H left outer join `EPAHistory` E on E.epaid=H.epaid and E.student=H.student and H.uploaded<E.uploaded where E.uploaded is null and H.student=?', req.params.id, function(err, rows, fields)
+  con.query('select H.* from `EPAHistory` H left outer join `EPAHistory` E on E.epaid=H.epaid and E.student=H.student and H.examdate<E.examdate where E.examdate is null and H.student=?', req.params.id, function(err, rows, fields)
   {
     if(err){
       console.log('Connection result error '+err);

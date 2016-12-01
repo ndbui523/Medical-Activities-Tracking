@@ -79,7 +79,7 @@ angular.module('appControllers').controller('epa-details-controller', ['$scope',
     var testDates = []
     var testScores = []
     $.each($scope.testInfo, function(){
-      testDates.push(this.uploaded);
+      testDates.push(this.examdate);
       testScores.push(this.newval);
     });
 

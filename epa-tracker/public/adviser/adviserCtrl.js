@@ -25,16 +25,16 @@ angular.module('appControllers').controller('adviserCtrl', ['$scope', '$routePar
             element['regressed'] = 0;
             $http({
               method: 'GET',
-              url: '/users/'+element.uid+'/summary'
+              url: '/users/'+element.uid.toString()+'/summary'
             }).then(function successCallback(response) {
                 $scope.currentEPAs = response.data;
                 $scope.currentEPAs.forEach(function(element2){
+
 
                   $http({
                     method: 'GET',
                     url: '/tests/'+element.uid+'/'+element2.epaid
                   }).then(function successCallback(response) {
-                    console.log("hi")
                     if(response.data.length != 0){
                       var total = 0;
                       response.data.forEach(function(element3){
@@ -45,6 +45,7 @@ angular.module('appControllers').controller('adviserCtrl', ['$scope', '$routePar
 
                       if(element2.newval - avgTemp < -0.4){
                         element['regressed']++;
+
                       }
                       else if(element2.newval - avgTemp > 0.4){
                         element['improved']++;
