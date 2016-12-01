@@ -112,8 +112,7 @@ body{
   margin-bottom: 15px;
 }
 
-.col-md-10,
-.col-xs-12{
+.col-md-10{
   padding-top: 15px;
   padding-bottom: 15px;
   background-color: #E1F5FE;

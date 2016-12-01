@@ -19,7 +19,46 @@
       </div>
     </div>
 
-    <div class="flex-container">
+    <div class = "row block">
+      <div class="col-xs-12 col-md-10 col-md-offset-1">
+        <button type="button" id="examHelp" class="glyphicon glyphicon-info-sign btn btn-link" data-toggle="modal" data-target="#helpModal" ng-click="displayHelp($event);"></button>
+        <div class = "row">
+          <div class ="col-xs-12 col-md-6" style="padding-top: 30px;">
+            <div id="line-chart" style="padding-top: 2%;"></div>
+          </div>
+          <div class ="col-xs-12 col-md-6">
+            <h3 align="center">Your Recent Assessments</h3>
+            <table class="table test-data">
+              <tr ng-repeat="test in testInfo">
+                <td class="test-name">
+                  {{test.title}}
+                  <br>
+                  {{test.examdate}}
+                </td>
+                <td class="test-score">
+                  {{test.newval}}
+                </td>
+                <td class="test-delta">
+                  <div ng-if="test.delta == 'up'">
+                    <span class="glyphicon glyphicon-arrow-up" style="font-size: 20px; color: #388E3C"></span>
+                  </div>
+                  <div ng-if="test.delta == 'down'">
+                    <span class="glyphicon glyphicon-arrow-down" style="font-size: 20px; color: #D32F2F"></span>
+                  </div>
+                  <div ng-if="test.delta == 'even'">
+                    <span class="glyphicon glyphicon-sort" style="font-size: 20px; color: #F9AE1D;"></span>
+                  </div>
+                </td>
+                <td class="test-comment">
+                  <button type="button" class="glyphicon glyphicon-envelope btn btn-link" data-toggle="modal" data-target="#examModal" style="font-size: 15px;"></button>
+                </td>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- <div class="flex-container">
       <div class="flex-item">
         <button type="button" id="examHelp" class="glyphicon glyphicon-info-sign btn btn-link" data-toggle="modal" data-target="#helpModal" ng-click="displayHelp($event);"></button>
         <div id="line-chart" style="padding-top: 2%;"></div>
@@ -28,33 +67,33 @@
       <div class="flex-item">
         <button type="button" id="examHelp" class="glyphicon glyphicon-info-sign btn btn-link" data-toggle="modal" data-target="#helpModal" ng-click="displayHelp($event);"></button>
         <h3 align="center">Your Recent Assessments</h3>
-          <table class="table test-data">
-            <tr ng-repeat="test in testInfo">
-              <td class="test-name">
-                {{test.title}}
-                <br>
-                {{test.examdate}}
-              </td>
-              <td class="test-score">
-                {{test.newval}}
-              </td>
-              <td class="test-delta">
-                <div ng-if="test.delta == 'up'">
-                  <span class="glyphicon glyphicon-arrow-up" style="font-size: 20px; color: #388E3C"></span>
-                </div>
-                <div ng-if="test.delta == 'down'">
-                  <span class="glyphicon glyphicon-arrow-down" style="font-size: 20px; color: #D32F2F"></span>
-                </div>
-                <div ng-if="test.delta == 'even'">
-                  <span class="glyphicon glyphicon-sort" style="font-size: 20px; color: #F9AE1D;"></span>
-                </div>
-              </td>
-              <td class="test-comment">
-                <button type="button" class="glyphicon glyphicon-envelope btn btn-link" data-toggle="modal" data-target="#examModal" style="font-size: 15px;"></button>
-              </td>
-          </table>
+        <table class="table test-data">
+          <tr ng-repeat="test in testInfo">
+            <td class="test-name">
+              {{test.title}}
+              <br>
+              {{test.examdate}}
+            </td>
+            <td class="test-score">
+              {{test.newval}}
+            </td>
+            <td class="test-delta">
+              <div ng-if="test.delta == 'up'">
+                <span class="glyphicon glyphicon-arrow-up" style="font-size: 20px; color: #388E3C"></span>
+              </div>
+              <div ng-if="test.delta == 'down'">
+                <span class="glyphicon glyphicon-arrow-down" style="font-size: 20px; color: #D32F2F"></span>
+              </div>
+              <div ng-if="test.delta == 'even'">
+                <span class="glyphicon glyphicon-sort" style="font-size: 20px; color: #F9AE1D;"></span>
+              </div>
+            </td>
+            <td class="test-comment">
+              <button type="button" class="glyphicon glyphicon-envelope btn btn-link" data-toggle="modal" data-target="#examModal" style="font-size: 15px;"></button>
+            </td>
+        </table>
       </div>
-    </div>
+    </div> -->
 
     <div class = "row">
       <div class="col-xs-12 col-md-10 col-md-offset-1">
