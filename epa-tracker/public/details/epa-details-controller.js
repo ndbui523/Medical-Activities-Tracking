@@ -62,18 +62,25 @@ angular.module('appControllers').controller('epa-details-controller', ['$scope',
     url: '/tests/'+$routeParams.id+'/'+$scope.epa
   }).then(function successCallback(response) {
     var tempres = response.data;
-    console.log(tempres);
-    var running = 0;
-    var num = 0;
-    tempres.forEach(function(element){
-      //need to compute a delta
-      element.delta = 'up';
-      //
-      running += element.newval;
-      num += 1;
 
-      $scope.testInfo.push(element);
-    });
+    for (i = 0; i < tempres.length; i++){
+      if (i == tempres.length-1){
+        tempres[i].delta = '';
+      }
+      else if(tempres[i].newval > tempres[i+1].newval){
+        tempres[i].delta = 'up';
+      }
+      else if(tempres[i].newval < tempres[i+1].newval){
+        tempres[i].delta = 'down';
+      }
+      else{
+        tempres[i].delta = 'even';
+      }
+
+      var tempDate = tempres[i].examdate.split('-');
+      tempres[i].examdate = tempDate[1] + "/" + tempDate[2].substring(0,2) + "/" + tempDate[0];
+      $scope.testInfo.push(tempres[i]);
+    }
 
 
     var testDates = []
@@ -83,8 +90,6 @@ angular.module('appControllers').controller('epa-details-controller', ['$scope',
       testScores.push(this.newval);
     });
 
-    console.log(testDates);
-    console.log(testScores);
     $('#line-chart').highcharts({
       chart: {
         backgroundColor:'transparent'

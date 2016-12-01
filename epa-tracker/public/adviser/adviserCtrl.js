@@ -28,8 +28,9 @@ angular.module('appControllers').controller('adviserCtrl', ['$scope', '$routePar
               url: '/users/'+element.uid.toString()+'/summary'
             }).then(function successCallback(response) {
                 $scope.currentEPAs = response.data;
+                element['average'] = 0
                 $scope.currentEPAs.forEach(function(element2){
-
+                  element['average'] += element2.newval;
 
                   $http({
                     method: 'GET',
@@ -56,6 +57,8 @@ angular.module('appControllers').controller('adviserCtrl', ['$scope', '$routePar
                   });
 
                 });
+                element['average'] = (element['average']/$scope.currentEPAs.length).toPrecision(3);
+
             }, function errorCallback(response) {
                 console.log("error")
             });

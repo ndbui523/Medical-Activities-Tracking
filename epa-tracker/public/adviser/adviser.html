@@ -21,7 +21,8 @@
           <tr>
             <th class="table-category" ng-click="sortBy('lastName')">Student Name</th>
             <th class="table-category" ng-click="sortBy('email')">Email</th>
-            <th class="table-category" ng-click="sortBy('grade')" style="text-align: center;">Year</th>
+            <th class="table-category" ng-click="sortBy('year')" style="text-align: center;">Year</th>
+            <th class="table-category" ng-click="sortBy('average')" style="text-align: center;">Average EPA</th>
             <th class="table-category" ng-click="sortBy('improved')" style="text-align: center;">
               Improved <span class="glyphicon glyphicon-arrow-up" style="color: #388E3C;"></span>
             </th>
@@ -33,6 +34,7 @@
             <td><a href="/#/{{advisee.uid}}">{{advisee.lname + ', ' + advisee.fname}}</a></td>
             <td>{{advisee.email}}</td>
             <td style="text-align: center;">{{advisee.year}}</td >
+            <td style="text-align: center;">{{advisee.average}}</td >
             <td ng-class="advisee.improved >= threshold ? 'urgent-green' : ''" style="text-align: center;">
               <div ng-if="advisee.improved >= threshold">
                 <b>{{advisee.improved}}</b>
