@@ -2,6 +2,11 @@ var mysql = require('mysql')
 var express = require('express');
 var router = express.Router();
 var fs = require('fs');
+
+var multer = require('multer');
+var upload = multer();
+
+
 var con = mysql.createConnection({
   host: 'mydb.cs.unc.edu',
   user: 'granthum',
@@ -89,6 +94,29 @@ router.get('/users/:id',function(req,res){
       res.send(JSON.stringify(rows));
       res.end();
     }
+  });
+});
+
+router.post('/test/new', upload.array(), function(req, res){
+  var body = req.body;
+  console.log(body);
+  con.query('INSERT INTO EPAHistory_TEST (student, epaid, title, uploaded, newval) VALUES (?, ?, ?, ?, ?)', body.student, body.epaid, body.title, body.examdate, body.newval, function(err, result){
+      if(err){
+        res.send("Failure, "+err);
+      }
+      else{
+        con.query('SELECT hid from EPAHistory_TEST WHERE student=? AND epaid=? AND title=? AND uploaded=? AND newval=?', body.student, body.epaid, body.title, body.examdate, body.newval, function(err, rows, fields){
+          if(err){
+            res.send("Fail2, " + err);
+          }
+          else{
+            var hid = JSON.stringify(rows);
+            console.log(hid);
+            res.send("Success?");
+          }
+        });
+      }
+      res.end();
   });
 });
 

@@ -106,12 +106,12 @@ angular.module('appControllers').controller('dashboardCtrl', ['$scope','$routePa
                   color: '#7E57C2'
                   //drilldown: 'Pre Entrustable'
               }, {
-                  name: 'Mastery Level 2',
+                  name: 'Able to do With Supervision',
                   y: $scope.graphData[2].length,
                   color: '#7E57C2'
                   //drilldown: 'Level 2'
               }, {
-                  name: 'Mastery Level 3',
+                  name: 'Able to do Without Supervision',
                   y: $scope.graphData[3].length,
                   color: '#7E57C2'
                   //drilldown: 'Level 3'
