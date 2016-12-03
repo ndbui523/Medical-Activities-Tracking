@@ -103,8 +103,9 @@ angular.module('appControllers').controller('adviserCtrl', ['$scope', '$routePar
 
     $scope.displayHelp = function(event){
       if(event.target.id == "adviserHelp"){
-        $scope.helpText = "This section allows advisers to see a list of their students." +
-        "\r\nClick on a field to sort by that field. Students with high numbers of improved or regressed EPAs will appear highlighted.";
+        $scope.helpText = "Click on a column to sort by each field. Clicking on a tab allows for filtering based on student years. "+
+        "\r\nAverage is computed by summing the most recent EPA mastery levels of all EPAs and dividing by total number of EPAs. " +
+        "\r\nThe number of improved and regressed EPAs are calculated by comparing the student's most recent examination against their recent average for that EPA. ";
       }
     }
 

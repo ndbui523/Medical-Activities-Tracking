@@ -133,22 +133,21 @@ angular.module('appControllers').controller('dashboardCtrl', ['$scope','$routePa
   });
 
 
-
-
-
   //Modal Text
   $scope.helpText = "This is placeholder text"
   $scope.displayHelp = function(event){
     if(event.target.id == "chartHelp"){
-      $scope.helpText = "This section displays a bar graph of the levels of the student's EPAs."+
-        "\r\nEPAs range between 1 (not entrustable) and 4 (entrustable), and mastery levels vary based on the difficulty of work students are exposed to.";
+      $scope.helpText = "Each bar indicates the number of EPAs that fall under a certain level of mastery. " +
+      "\r\nExpected mastery levels for students are based on experience; a fourth year student is expected to have mostly level 3 and 4s, "+
+      "while a first year student will expect to be at mostly level 1.";
     }
     if(event.target.id == "regHelp"){
-      $scope.helpText = "This section details the number of EPAs that have regressed or improved since the last reporting period.";
+      $scope.helpText = "The number of improved and regressed EPAs is displayed. This is calculated by comparing the results of the most recent evaluation " +
+      "for each EPA against the recent average performance for that EPA.";
     }
     if(event.target.id == "listHelp"){
-      $scope.helpText = "This section is a detailed combination of the above two; EPAs are listed based on mastery level and improvements and regressions are indicated." +
-        "\r\nClick on an EPA to show the details page for that EPA.";
+      $scope.helpText = "Each EPA is listed under the appropriate mastery level, with indication of improvement or regression. "+
+      "Clicking on a specific EPA takes you to that EPA's details page, where you can examine recent evaluations.";
     }
   }
 }]);
