@@ -44,7 +44,6 @@ router.get('/tests/:id/:epa',function(req,res){
       console.log('no of records is '+rows.length);
       res.set({'Content-Type':'text/json'});
       res.send(JSON.stringify(rows));
-      res.end();
     }
   });
 });
@@ -60,7 +59,6 @@ router.get('/users/:id/summary',function(req,res){
       console.log('no of records is '+rows.length);
       res.set({'Content-Type':'text/json'});
       res.send(JSON.stringify(rows));
-      res.end();
     }
   });
 });
@@ -77,7 +75,6 @@ router.get('/adviser/:id/advisees',function(req,res){
       console.log('no of records is '+rows.length);
       res.set({'Content-Type':'text/json'});
       res.send(JSON.stringify(rows));
-      res.end();
     }
   });
 });
@@ -92,55 +89,76 @@ router.get('/users/:id',function(req,res){
       console.log('no of records is '+rows.length);
       res.set({'Content-Type':'text/json'});
       res.send(JSON.stringify(rows));
-      res.end();
     }
   });
 });
 
-router.post('/test/new', upload.array(), function(req, res){
+
+router.post('new/adviser', upload.array(), function(req, res){
   var body = req.body;
-  console.log(body);
-  con.query('INSERT INTO EPAHistory_TEST (student, epaid, title, uploaded, newval) VALUES (?, ?, ?, ?, ?)', body.student, body.epaid, body.title, body.examdate, body.newval, function(err, result){
-      if(err){
-        res.send("Failure, "+err);
-      }
-      else{
-        con.query('SELECT hid from EPAHistory_TEST WHERE student=? AND epaid=? AND title=? AND uploaded=? AND newval=?', body.student, body.epaid, body.title, body.examdate, body.newval, function(err, rows, fields){
-          if(err){
-            res.send("Fail2, " + err);
-          }
-          else{
-            var hid = JSON.stringify(rows);
-            console.log(hid);
-            res.send("Success?");
-          }
-        });
-      }
-      res.end();
+  con.query('INSERT INTO Users (username, email, fname, lname, permissions, year) VALUES (?, ?, ?, ?, ?, ?)', [body.username, body.email, body.fname, body.lname, 1, body.adviserid, 0], function(err, rows, fields){
+    if(err){
+      res.send("Fail1, " + err);
+    }
+    else{
+      con.query('SELECT uid FROM Users WHERE username=?', [body.username], function(err2, rows2, fields2){
+        if(err2){
+          res.send("Fail2, " + err2)
+        }
+        else{
+          var uid = JSON.stringify(rows2)
+          res.send(uid);
+        }
+      });
+    }
   });
 });
 
-// router.get('/tests/:id/:epa',function(req,res){
-//   connection.connect();
-//   connection.query('SELECT title, uploaded, newval  FROM EPAHistory WHERE student = ? AND epaid = ? SORT BY updated datetime LIMIT 10', req.params.id, req.params.epa function(err, rows, fields)
-//   {
-//           console.log('Connection result error '+err);
-//           console.log('no of records is '+rows.length);
-//           res.writeHead(200, { 'Content-Type': 'application/json'});
-//           res.end(JSON.stringify(rows));
-//   });
-// });
-//
-// router.get('/comments/:id',function(req,res){
-//   connection.connect();
-//   connection.query('SELECT comment FROM EPAHistory WHERE id = ? SORT BY updated datetime LIMIT 2', req.params.id, function(err, rows, fields)
-//   {
-//           console.log('Connection result error '+err);
-//           console.log('no of records is '+rows.length);
-//           res.writeHead(200, { 'Content-Type': 'application/json'});
-//           res.end(JSON.stringify(rows));
-//   });
-// });
+router.post('new/student', upload.array(), function(req, res){
+  var body = req.body;
+  con.query('INSERT INTO Users (username, email, fname, lname, permissions, adviserid, year) VALUES (?, ?, ?, ?, ?, ?, ?)', [body.username, body.email, body.fname, body.lname, 0, body.adviserid, body.year], function(err, rows, fields){
+    if(err){
+      res.send("Fail1, " + err);
+    }
+    else{
+      con.query('SELECT uid FROM Users WHERE username=?', [body.username], function(err2, rows2, fields2){
+        if(err2){
+          res.send("Fail2, " + err2)
+        }
+        else{
+          var uid = JSON.stringify(rows2)
+          res.send(uid);
+        }
+      });
+    }
+  });
+});
 
+router.post('/new/exam', upload.array(), function(req, res){
+  var body = req.body;
+  con.query('INSERT INTO EPAHistory (student, epaid, title, examdate, newval) VALUES (?, ?, ?, ?, ?)', [body.student, body.epaid, body.title, body.examdate, body.newval], function(err, rows, fields){
+    if(err){
+      res.send("Fail1, " + err);
+    }
+    else{
+      con.query('SELECT hid FROM EPAHistory WHERE student=? AND epaid=? AND title=? AND examdate=? AND newval=?', [body.student, body.epaid, body.title, body.examdate, body.newval], function(err2, rows2, fields2){
+        if(err){
+          res.send("Fail2, " + err2);
+        }
+        else{
+          var hid = JSON.stringify(rows2);
+          con.query('INSERT INTO UpdateComments (hid, body) VALUES (?, ?)', [hid, body.comments], function(err3, rows3, fields3){
+            if(err){
+              res.send("Fail3, " + err3);
+            }
+            else{
+              res.send("Success");
+            }
+          })
+        }
+      });
+    }
+  });
+});
 
 module.exports = router;
