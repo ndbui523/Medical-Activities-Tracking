@@ -94,7 +94,7 @@ router.get('/users/:id',function(req,res){
 });
 
 
-router.post('new/adviser', upload.array(), function(req, res){
+router.post('/new/adviser', upload.array(), function(req, res){
   var body = req.body;
   con.query('INSERT INTO Users (username, email, fname, lname, permissions, year) VALUES (?, ?, ?, ?, ?, ?)', [body.username, body.email, body.fname, body.lname, 1, 0], function(err, rows, fields){
     if(err){
@@ -114,7 +114,7 @@ router.post('new/adviser', upload.array(), function(req, res){
   });
 });
 
-router.post('new/student', upload.array(), function(req, res){
+router.post('/new/student', upload.array(), function(req, res){
   var body = req.body;
   con.query('INSERT INTO Users (username, email, fname, lname, permissions, adviserid, year) VALUES (?, ?, ?, ?, ?, ?, ?)', [body.username, body.email, body.fname, body.lname, 0, body.adviserid, body.year], function(err, rows, fields){
     if(err){
