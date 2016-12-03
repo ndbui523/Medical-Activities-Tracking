@@ -24,10 +24,10 @@
             <th class="table-category" ng-click="sortBy('year')" style="text-align: center;">Year</th>
             <th class="table-category" ng-click="sortBy('average')" style="text-align: center;">Average EPA</th>
             <th class="table-category" ng-click="sortBy('improved')" style="text-align: center;">
-              Improved <span class="glyphicon glyphicon-arrow-up" style="color: #388E3C;"></span>
+              No. of Improved <span class="glyphicon glyphicon-arrow-up" style="color: #388E3C;"></span>
             </th>
             <th class="table-category" ng-click="sortBy('regressed')" style="text-align: center;">
-              Regressed <span class="glyphicon glyphicon-arrow-down" style="color: #D32F2F;"></span>
+              No. of Regressed <span class="glyphicon glyphicon-arrow-down" style="color: #D32F2F;"></span>
             </th>
           </tr>
           <tr ng-repeat="advisee in advisees | filter: {year: curfilter} |orderBy:property:reverse">

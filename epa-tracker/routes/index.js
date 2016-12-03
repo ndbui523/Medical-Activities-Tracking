@@ -96,7 +96,7 @@ router.get('/users/:id',function(req,res){
 
 router.post('new/adviser', upload.array(), function(req, res){
   var body = req.body;
-  con.query('INSERT INTO Users (username, email, fname, lname, permissions, year) VALUES (?, ?, ?, ?, ?, ?)', [body.username, body.email, body.fname, body.lname, 1, body.adviserid, 0], function(err, rows, fields){
+  con.query('INSERT INTO Users (username, email, fname, lname, permissions, year) VALUES (?, ?, ?, ?, ?, ?)', [body.username, body.email, body.fname, body.lname, 1, 0], function(err, rows, fields){
     if(err){
       res.send("Fail1, " + err);
     }
