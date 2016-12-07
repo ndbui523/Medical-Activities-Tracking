@@ -1,9 +1,15 @@
 angular.module('appControllers',[]);
-var myApp = angular.module('myApp', ['appControllers','ngRoute']);
+var myApp = angular.module('myApp', ['appControllers','ngRoute','ngCookies']);
 
 //Routing
 myApp.config(['$routeProvider', function($routeProvider) {
   $routeProvider
+  .when('/login',{
+    templateUrl: '/login/login.html',
+  })
+  .when('/unauthorized',{
+    templateUrl : '/unauth/unauthorized.html',
+  })
   .when('/:id', {
     templateUrl : '/dashboard/dashboard.html',
   })

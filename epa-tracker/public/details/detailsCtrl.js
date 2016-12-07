@@ -1,22 +1,39 @@
-angular.module('appControllers').controller('epa-details-controller', ['$scope','$routeParams','$http',function($scope,$routeParams,$http){
+angular.module('appControllers').controller('detailsCtrl', ['$scope','$routeParams','$http','cookieService','$location','$q',function($scope,$routeParams,$http,cookieService,$location,$q){
+
   $scope.epa = $routeParams.epa
+  $scope.id = $routeParams.id;
   $scope.deltaText = "";
   $scope.deltaArrow = "even"
   $scope.mastery;
   $scope.testInfo = [];
+  $scope.commentText = '';
+  $scope.comments = [];
+
+  var userCookie = cookieService.getCookie('user');
+
+  if(!userCookie){
+    $location.url('/login');
+  }
+  else{
+    cookieService.isAuthorized(userCookie, $scope.id).then(function(auth){
+      if(!auth){
+        $location.url('/unauthorized');
+      }
+    });
+  }
 
   $http({
-  method: 'GET',
-  url: '/details/' + $scope.epa
-  }).then(function successCallback(response) {
-    $scope.epaDetails=response.data
-  }, function errorCallback(response) {
-    console.log("Error reading in EPA details : /details/"+$scope.epa)
+    method: 'GET',
+    url: '/details/' + $scope.epa
+    }).then(function successCallback(response) {
+      $scope.epaDetails=response.data
+    }, function errorCallback(response) {
+      console.log("Error reading in EPA details : /details/"+$scope.epa)
   });
 
   $http({
     method: 'GET',
-    url: '/users/'+$routeParams.id+'/summary'
+    url: '/users/'+$scope.id+'/summary'
   }).then(function successCallback(response) {
       $scope.currentEPAs = response.data;
       $scope.currentEPAs.forEach(function(element){
@@ -27,7 +44,7 @@ angular.module('appControllers').controller('epa-details-controller', ['$scope',
 
       $http({
         method: 'GET',
-        url: '/tests/'+$routeParams.id+'/'+$scope.epa
+        url: '/tests/'+$scope.id+'/'+$scope.epa
       }).then(function successCallback(response) {
         if(response.data.length != 0){
           var total = 0;
@@ -38,15 +55,15 @@ angular.module('appControllers').controller('epa-details-controller', ['$scope',
           var avgTemp = total/response.data.length;
 
           if($scope.mastery - avgTemp < -0.4){
-            $scope.deltaText = 'Your level in this EPA has fallen since the last examination.';
+            $scope.deltaText = 'Your level in this EPA has fallen compared to the average of the previous 10 examinations.';
             $scope.deltaArrow = 'down'
           }
           else if($scope.mastery - avgTemp > 0.4){
-            $scope.deltaText = 'Your level in this EPA has risen since the last examination.'
+            $scope.deltaText = 'Your level in this EPA has risen compared to the average of the previous 10 examinations.'
             $scope.deltaArrow = 'up'
           }
           else{
-            $scope.deltaText = 'Your level in this EPA has stayed the same since the last examination.';
+            $scope.deltaText = 'Your level in this EPA has stayed the same compared to the average of the previous 10 examinations.';
             $scope.deltaArrow = 'even'
           }
         }
@@ -59,11 +76,22 @@ angular.module('appControllers').controller('epa-details-controller', ['$scope',
 
   $http({
     method: 'GET',
-    url: '/tests/'+$routeParams.id+'/'+$scope.epa
+    url: '/tests/'+$scope.id+'/'+$scope.epa
   }).then(function successCallback(response) {
     var tempres = response.data;
+    var promises = [];
 
     for (i = 0; i < tempres.length; i++){
+      console.log(i)
+      promises.push($http({
+        method: 'GET',
+        url: '/comments/'+tempres[i].hid,
+      }).then(function successCallback(response){
+        return response.data
+      },function errorCallback(error){
+        console.log(error);
+      }));
+
       if (i == tempres.length-1){
         tempres[i].delta = '';
       }
@@ -82,6 +110,9 @@ angular.module('appControllers').controller('epa-details-controller', ['$scope',
       $scope.testInfo.push(tempres[i]);
     }
 
+    $q.all(promises).then(function(commentArray){
+      $scope.comments = commentArray;
+    })
 
     var testDates = []
     var testScores = []
@@ -128,91 +159,23 @@ angular.module('appControllers').controller('epa-details-controller', ['$scope',
           data: testScores.reverse()
       }]
     });
-
   }, function errorCallback(response) {
     console.log("error");
   });
 
-  // $scope.testInfo = [
-  //   {
-  //     'name' : 'Piedmont Health Services Rotation',
-  //     'date' : 'May 05 2016',
-  //     'score' : 95,
-  //     'delta' : 'up',
-  //     'newVal' : 3
-  //   },
-  //
-  //   {
-  //     'name' : 'Piedmont Health Services Rotation',
-  //     'date' : 'April 25 2016',
-  //     'score' : 79,
-  //     'delta' : 'even',
-  //     'newVal' : 2
-  //   },
-  //
-  //   {
-  //     'name' : 'Piedmont Health Services Rotation',
-  //     'date' : 'Jan 09 2016',
-  //     'score' : 65,
-  //     'delta' : 'down',
-  //     'newVal' : 2
-  //   },
-  //
-  //   {
-  //     'name' : 'Piedmont Health Services Rotation',
-  //     'date' : 'Sept 14 2015',
-  //     'score' : 90,
-  //     'delta' : 'up',
-  //     'newVal' : 3
-  //   }
-  // ];
+  $scope.getComment = function(index){
+    var testComments = $scope.comments[index];
+    if(testComments.length == 0){
+      $scope.commentText = 'There are no comments for this examination.'
+    }
+    else{
+      $scope.commentText = '';
+      testComments.forEach(function(element){
+        $scope.commentText += element.body + ' ';
+      });
+    }
 
-  // var testDates = []
-  // var testScores = []
-  // $.each($scope.testInfo, function(){
-  //   testDates.push(this.uploaded);
-  //   testScores.push(this.newVal);
-  // });
-  //
-  // $('#line-chart').highcharts({
-  //   chart: {
-  //     backgroundColor:'transparent'
-  //   },
-  //   title: {
-  //       text: 'Recent Exam Trends',
-  //       style: {
-  //         fontSize: '24px'
-  //       }
-  //
-  //   },
-  //   xAxis: {
-  //       categories: testDates.reverse()
-  //   },
-  //   yAxis: {
-  //       title: {
-  //           text: 'Mastery Level',
-  //           style: {
-  //             fontSize: '18px'
-  //           }
-  //       },
-  //       plotLines: [{
-  //           value: 0,
-  //           width: 1,
-  //           color: '#808080'
-  //       }],
-  //       min: 1,
-  //       max: 4,
-  //       tickInterval: 1
-  //   },
-  //   credits: {
-  //     enabled: false
-  //   },
-  //   series: [{
-  //       //name: 'Tokyo',
-  //       showInLegend: false,
-  //       data: testScores.reverse()
-  //   }]
-  // });
+  }
 
   $scope.helpText = "This is placeholder text"
   $scope.displayHelp = function(event){

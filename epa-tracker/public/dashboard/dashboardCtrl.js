@@ -1,10 +1,25 @@
-angular.module('appControllers').controller('dashboardCtrl', ['$scope','$routeParams','$http',function($scope,$routeParams,$http){
+angular.module('appControllers').controller('dashboardCtrl', ['$scope','$routeParams','$http','cookieService','$location',function($scope,$routeParams,$http,cookieService,$location){
+
   $scope.id = $routeParams.id;
   $scope.summaryDeltas = {
     'Regressed' : [],
     'Even' : [],
     'Improved' : []
   }
+  var userCookie = cookieService.getCookie('user');
+
+
+  if(!userCookie){
+    $location.url('/login');
+  }
+  else{
+    cookieService.isAuthorized(userCookie, $scope.id).then(function(auth){
+      if(!auth){
+        $location.url('/unauthorized');
+      }
+    });
+  }
+
   $http({
     method: 'GET',
     url: '/users/'+$routeParams.id,

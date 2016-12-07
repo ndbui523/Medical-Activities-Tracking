@@ -29,26 +29,26 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
-router.get('/details/:epa',function(req,res) {
+router.get('/details/:epa', function(req,res) {
   var epaDetails = JSON.parse(fs.readFileSync('assets/epa-details-list.json', 'utf8'));
   res.json(epaDetails.EPAs[req.params.epa-1])
 });
 
-router.get('/tests/:id/:epa',function(req,res){
+router.get('/tests/:id/:epa', function(req,res){
   con.query('SELECT * FROM EPAHistory  WHERE student = ? AND epaid = ? ORDER BY examdate desc LIMIT 10', [req.params.id,req.params.epa], function(err, rows, fields)
   {
     if(err){
       console.log('Connection result error '+err);
     }
     else{
-      console.log('no of records is '+rows.length);
+      //console.log('no of records is '+rows.length);
       res.set({'Content-Type':'text/json'});
       res.send(JSON.stringify(rows));
     }
   });
 });
 
-router.get('/users/:id/summary',function(req,res){
+router.get('/users/:id/summary', function(req,res){
   //con.connect();
   con.query('select H.* from `EPAHistory` H left outer join `EPAHistory` E on E.epaid=H.epaid and E.student=H.student and H.examdate<E.examdate where E.examdate is null and H.student=?', req.params.id, function(err, rows, fields)
   {
@@ -56,43 +56,53 @@ router.get('/users/:id/summary',function(req,res){
       console.log('Connection result error '+err);
     }
     else{
-      console.log('no of records is '+rows.length);
+      //console.log('no of records is '+rows.length);
       res.set({'Content-Type':'text/json'});
       res.send(JSON.stringify(rows));
     }
   });
 });
 
-
-
-router.get('/adviser/:id/advisees',function(req,res){
+router.get('/adviser/:id/advisees', function(req,res){
   con.query('SELECT fname, lname, email, uid, year FROM Users u WHERE u.adviserid = ?', req.params.id, function(err, rows, fields)
   {
     if(err){
       console.log('Connection result error '+err);
     }
     else{
-      console.log('no of records is '+rows.length);
+      //console.log('no of records is '+rows.length);
       res.set({'Content-Type':'text/json'});
       res.send(JSON.stringify(rows));
     }
   });
 });
 
-router.get('/users/:id',function(req,res){
+router.get('/users/:id', function(req,res){
   con.query('SELECT fname, lname, permissions FROM Users WHERE uid = ?', req.params.id, function(err, rows, fields)
   {
     if(err){
       console.log('Connection result error '+err);
     }
     else{
-      console.log('no of records is '+rows.length);
+      //console.log('no of records is '+rows.length);
       res.set({'Content-Type':'text/json'});
       res.send(JSON.stringify(rows));
     }
   });
 });
 
+router.get('/comments/:tid', function(req, res){
+  con.query('SELECT body, hid FROM UpdateComments WHERE hid = ?', req.params.tid, function(err, rows, fields){
+    if(err){
+      console.log('Connection result error '+err);
+    }
+    else{
+      //console.log('no of records is '+rows.length);
+      res.set({'Content-Type':'text/json'});
+      res.send(JSON.stringify(rows));
+    }
+  });
+});
 
 router.post('new/adviser', upload.array(), function(req, res){
   var body = req.body;
