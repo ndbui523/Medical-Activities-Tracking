@@ -78,7 +78,7 @@ router.get('/adviser/:id/advisees', function(req,res){
 });
 
 router.get('/users/:id', function(req,res){
-  con.query('SELECT fname, lname, permissions FROM Users WHERE uid = ?', req.params.id, function(err, rows, fields)
+  con.query('SELECT fname, lname, year, email, permissions FROM Users WHERE uid = ?', req.params.id, function(err, rows, fields)
   {
     if(err){
       console.log('Connection result error '+err);
