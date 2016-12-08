@@ -101,6 +101,11 @@ angular.module('appControllers').controller('dashboardCtrl', ['$scope','$routePa
           },
           plotOptions: {
               series: {
+                  states: {
+                      hover: {
+                          enabled: false
+                      }
+                  },
                   borderWidth: 0,
                   dataLabels: {
                       enabled: true,
@@ -119,22 +124,22 @@ angular.module('appControllers').controller('dashboardCtrl', ['$scope','$routePa
               name: 'EPAs in this level',
               colorByPoint: true,
               data: [{
-                  name: 'Pre Entrustable',
+                  name: 'Pre Entrustable (Early learner)',
                   y: $scope.graphData[1].length,
                   color: '#7E57C2'
                   //drilldown: 'Pre Entrustable'
               }, {
-                  name: 'Able to do With Supervision',
+                  name: 'Direct Supervision',
                   y: $scope.graphData[2].length,
                   color: '#7E57C2'
                   //drilldown: 'Level 2'
               }, {
-                  name: 'Able to do Without Supervision',
+                  name: 'Indirect Supervision',
                   y: $scope.graphData[3].length,
                   color: '#7E57C2'
                   //drilldown: 'Level 3'
               }, {
-                  name: 'Entrustable',
+                  name: 'Entrustable (Independent)',
                   y: $scope.graphData[4].length,
                   color: '#7E57C2'
                   //drilldown: 'Entrustable'

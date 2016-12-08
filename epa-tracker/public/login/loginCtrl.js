@@ -3,19 +3,21 @@ angular.module('appControllers').controller('loginCtrl', ['$scope','$http','cook
 
   function checkLogin(){
     var formLogin = $('#loginid').val();
-    cookieService.makeCookie('user',formLogin);
     //console.log("2");
 
     $http({
       method: 'GET',
       url: '/users/'+formLogin,
     }).then(function successCallback(response) {
+      if(response.data[0]){
+        if (response.data[0].permissions == 1){
+          $location.url('/adviser/'+formLogin);
+        }
+        else{
+          $location.url('/'+formLogin);
+        }
 
-      if (response.data[0].permissions == 1){
-        $location.url('/adviser/'+formLogin);
-      }
-      else{
-        $location.url('/'+formLogin);
+        cookieService.makeCookie('user',formLogin);
       }
 
     }, function errorCallback(response){

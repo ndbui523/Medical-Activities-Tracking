@@ -5,6 +5,7 @@ angular.module('appControllers').controller('adviserCtrl', ['$scope', '$routePar
   $scope.reverse = true;
   $scope.property = 'regressed';
   $scope.gradyears = [];
+  $scope.allyears = [1,2,3,4];
 
   var userCookie = cookieService.getCookie('user');
 
@@ -98,7 +99,7 @@ angular.module('appControllers').controller('adviserCtrl', ['$scope', '$routePar
     if(vari == 0){
       $scope.curfilter = undefined;
     }
-    else{
+    else if($scope.gradyears.indexOf(vari) != -1){
       $scope.curfilter = vari;
     }
   }
