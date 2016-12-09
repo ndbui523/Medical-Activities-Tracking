@@ -1,3 +1,6 @@
+//Angular controller for the student dashboard view
+//Contributions by Nick, Grant, Tommy
+
 angular.module('appControllers').controller('dashboardCtrl', ['$scope','$routeParams','$http','cookieService','$location',function($scope,$routeParams,$http,cookieService,$location){
 
   $scope.id = $routeParams.id;
@@ -153,10 +156,6 @@ angular.module('appControllers').controller('dashboardCtrl', ['$scope','$routePa
     }, function errorCallback(response) {
       console.log("error")
   });
-
-
-
-
 
   //Modal Text
   $scope.helpText = "This is placeholder text"

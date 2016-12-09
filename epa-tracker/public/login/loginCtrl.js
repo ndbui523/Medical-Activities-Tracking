@@ -1,3 +1,6 @@
+//Angular controller for the login view
+//Contributions from Nick, Tommy
+
 angular.module('appControllers').controller('loginCtrl', ['$scope','$http','cookieService','$location',function($scope,$http,cookieService,$location){
   $scope.checkLogin = checkLogin;
 

@@ -1,3 +1,6 @@
+//Initializing the angular app
+//Contributions by Grant
+
 angular.module('appControllers',[]);
 var myApp = angular.module('myApp', ['appControllers','ngRoute','ngCookies']);
 

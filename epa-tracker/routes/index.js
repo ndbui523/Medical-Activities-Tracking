@@ -1,11 +1,12 @@
+//API calls for RESTful interface
+//Contributions from Nick, Grant, Tommy, Matthew
+
 var mysql = require('mysql')
 var express = require('express');
 var router = express.Router();
 var fs = require('fs');
-
 var multer = require('multer');
 var upload = multer();
-
 
 var con = mysql.createConnection({
   host: 'mydb.cs.unc.edu',
@@ -24,16 +25,18 @@ con.connect(function(err){
   return;
 });
 
-/* GET home page. */
+//GET home page
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
+//GET request that returns a json object of the checklist items for mastery in a given EPA
 router.get('/details/:epa', function(req,res) {
   var epaDetails = JSON.parse(fs.readFileSync('assets/epa-details-list.json', 'utf8'));
   res.json(epaDetails.EPAs[req.params.epa-1])
 });
 
+//GET request that returns details of the most recent 10 examinations for a given student and EPA
 router.get('/tests/:id/:epa', function(req,res){
   con.query('SELECT * FROM EPAHistory  WHERE student = ? AND epaid = ? ORDER BY examdate desc LIMIT 10', [req.params.id,req.params.epa], function(err, rows, fields)
   {
@@ -48,8 +51,8 @@ router.get('/tests/:id/:epa', function(req,res){
   });
 });
 
+//GET request that returns the detals of the most recent exams for each of a student's EPAs
 router.get('/users/:id/summary', function(req,res){
-  //con.connect();
   con.query('select H.* from `EPAHistory` H left outer join `EPAHistory` E on E.epaid=H.epaid and E.student=H.student and H.examdate<E.examdate where E.examdate is null and H.student=?', req.params.id, function(err, rows, fields)
   {
     if(err){
@@ -63,6 +66,7 @@ router.get('/users/:id/summary', function(req,res){
   });
 });
 
+//GET request that returns all advisees of a given adviser
 router.get('/adviser/:id/advisees', function(req,res){
   con.query('SELECT fname, lname, email, uid, year FROM Users u WHERE u.adviserid = ?', req.params.id, function(err, rows, fields)
   {
@@ -77,6 +81,7 @@ router.get('/adviser/:id/advisees', function(req,res){
   });
 });
 
+//GET request that returns information about a given user
 router.get('/users/:id', function(req,res){
   con.query('SELECT fname, lname, year, email, permissions FROM Users WHERE uid = ?', req.params.id, function(err, rows, fields)
   {
@@ -91,8 +96,9 @@ router.get('/users/:id', function(req,res){
   });
 });
 
-router.get('/comments/:tid', function(req, res){
-  con.query('SELECT body, hid FROM UpdateComments WHERE hid = ?', req.params.tid, function(err, rows, fields){
+//GET request that returns all comments for a given examination
+router.get('/comments/:hid', function(req, res){
+  con.query('SELECT body, hid FROM UpdateComments WHERE hid = ?', req.params.hid, function(err, rows, fields){
     if(err){
       console.log('Connection result error '+err);
     }
@@ -104,6 +110,9 @@ router.get('/comments/:tid', function(req, res){
   });
 });
 
+//POST request that creates a new adviser in the database
+//Expects username, email, fname, lname parameters in the request body
+//Returns the new adviser's uid on success
 router.post('new/adviser', upload.array(), function(req, res){
   var body = req.body;
   con.query('INSERT INTO Users (username, email, fname, lname, permissions, year) VALUES (?, ?, ?, ?, ?, ?)', [body.username, body.email, body.fname, body.lname, 1, 0], function(err, rows, fields){
@@ -124,6 +133,9 @@ router.post('new/adviser', upload.array(), function(req, res){
   });
 });
 
+//POST request that creates a new student in the database
+//Expects username, email, fname, lname, adviserid, year parameters in the request body
+//Returns the new student's uid on success
 router.post('new/student', upload.array(), function(req, res){
   var body = req.body;
   con.query('INSERT INTO Users (username, email, fname, lname, permissions, adviserid, year) VALUES (?, ?, ?, ?, ?, ?, ?)', [body.username, body.email, body.fname, body.lname, 0, body.adviserid, body.year], function(err, rows, fields){
@@ -144,6 +156,9 @@ router.post('new/student', upload.array(), function(req, res){
   });
 });
 
+//POST request that adds a new examination for a specified student and EPA
+//Expects student, epaid, title, examdate, newval, comments parameters in the request body
+//Returns 'Success' on success
 router.post('/new/exam', upload.array(), function(req, res){
   var body = req.body;
   con.query('INSERT INTO EPAHistory (student, epaid, title, examdate, newval) VALUES (?, ?, ?, ?, ?)', [body.student, body.epaid, body.title, body.examdate, body.newval], function(err, rows, fields){

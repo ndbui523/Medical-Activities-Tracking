@@ -1,3 +1,6 @@
+//Angular controller for the adviser view
+//Contributions from Nick, Grant, Tommy
+
 angular.module('appControllers').controller('adviserCtrl', ['$scope', '$routeParams','$http','$location','cookieService', function($scope, $routeParams, $http, $location,cookieService){
 
   $scope.id = $routeParams.id;

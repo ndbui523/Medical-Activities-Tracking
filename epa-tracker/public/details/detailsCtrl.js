@@ -1,3 +1,6 @@
+//Angular controller for the EPA details view
+//Contributions by Nick, Grant, Tommy
+
 angular.module('appControllers').controller('detailsCtrl', ['$scope','$routeParams','$http','cookieService','$location','$q',function($scope,$routeParams,$http,cookieService,$location,$q){
 
   $scope.epa = $routeParams.epa

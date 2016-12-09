@@ -1,3 +1,6 @@
+//Controller for the topmost navigation bar
+//Contributions from Nick, Tommy
+
 angular.module('appControllers').controller('navbarCtrl', ['$scope','cookieService', '$location','$http', function($scope,cookieService, $location,$http){
   $scope.logout = logout;
   $scope.gotoHome = gotoHome;

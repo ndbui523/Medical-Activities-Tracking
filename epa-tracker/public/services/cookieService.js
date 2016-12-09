@@ -1,3 +1,6 @@
+//Cookie service to check for currently logged in user
+//Contributions from Nick, Tommy
+
 angular.module('myApp').service('cookieService', ['$cookies','$http','$q', function ($cookies,$http,$q) {
 
   function getCookie(id){
