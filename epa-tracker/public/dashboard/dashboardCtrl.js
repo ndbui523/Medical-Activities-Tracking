@@ -24,7 +24,6 @@ angular.module('appControllers').controller('dashboardCtrl', ['$scope','$routePa
     method: 'GET',
     url: '/users/'+$routeParams.id,
   }).then(function successCallback(response) {
-    console.log(response.data[0])
     $scope.name = response.data[0].fname + " " + response.data[0].lname;
     $scope.year = response.data[0].year;
     $scope.email = response.data[0].email;

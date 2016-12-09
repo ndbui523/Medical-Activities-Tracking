@@ -82,7 +82,6 @@ angular.module('appControllers').controller('detailsCtrl', ['$scope','$routePara
     var promises = [];
 
     for (i = 0; i < tempres.length; i++){
-      console.log(i)
       promises.push($http({
         method: 'GET',
         url: '/comments/'+tempres[i].hid,
