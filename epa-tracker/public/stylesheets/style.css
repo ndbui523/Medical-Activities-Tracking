@@ -56,6 +56,11 @@ body{
   border: none;
 }
 
+.table.test-data > tbody > tr > th {
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+}
+
 .table.test-data {
   position: relative;
   top: 15px;
@@ -64,7 +69,7 @@ body{
 }
 
 .table.test-data tr {
-  border-top: 1px solid black;
+  border-top: 1px solid #E1F5FE;
   border-bottom: 1px solid black;
 }
 
@@ -83,6 +88,11 @@ body{
 
 .table.test-data .test-comment{
   width: 10%;
+}
+
+.details-table-category {
+    font-size: 15px;
+
 }
 
 .table-category {
