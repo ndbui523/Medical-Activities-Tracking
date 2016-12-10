@@ -27,7 +27,7 @@ angular.module('appControllers').controller('detailsCtrl', ['$scope','$routePara
 
   $http({
     method: 'GET',
-    url: '/details/' + $scope.epa
+    url: '/epa/' + $scope.epa
     }).then(function successCallback(response) {
       $scope.epaDetails=response.data
     }, function errorCallback(response) {
@@ -36,7 +36,7 @@ angular.module('appControllers').controller('detailsCtrl', ['$scope','$routePara
 
   $http({
     method: 'GET',
-    url: '/users/'+$scope.id+'/summary'
+    url: '/student/'+$scope.id+'/summary'
   }).then(function successCallback(response) {
       $scope.currentEPAs = response.data;
       $scope.currentEPAs.forEach(function(element){
@@ -87,7 +87,7 @@ angular.module('appControllers').controller('detailsCtrl', ['$scope','$routePara
     for (i = 0; i < tempres.length; i++){
       promises.push($http({
         method: 'GET',
-        url: '/comments/'+tempres[i].hid,
+        url: '/tests/comments/'+tempres[i].hid,
       }).then(function successCallback(response){
         return response.data
       },function errorCallback(error){

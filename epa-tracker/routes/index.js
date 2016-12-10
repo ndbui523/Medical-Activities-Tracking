@@ -31,7 +31,7 @@ router.get('/', function(req, res, next) {
 });
 
 //GET request that returns a json object of the checklist items for mastery in a given EPA
-router.get('/details/:epa', function(req,res) {
+router.get('/epa/:epa', function(req,res) {
   var epaDetails = JSON.parse(fs.readFileSync('assets/epa-details-list.json', 'utf8'));
   res.json(epaDetails.EPAs[req.params.epa-1])
 });
@@ -51,8 +51,37 @@ router.get('/tests/:id/:epa', function(req,res){
   });
 });
 
+//GET request that returns all comments for a given examination
+router.get('/tests/comments/:hid', function(req, res){
+  con.query('SELECT body, hid FROM UpdateComments WHERE hid = ?', req.params.hid, function(err, rows, fields){
+    if(err){
+      console.log('Connection result error '+err);
+    }
+    else{
+      //console.log('no of records is '+rows.length);
+      res.set({'Content-Type':'text/json'});
+      res.send(JSON.stringify(rows));
+    }
+  });
+});
+
+//GET request that returns information about a given user
+router.get('/users/:id', function(req,res){
+  con.query('SELECT fname, lname, year, email, permissions FROM Users WHERE uid = ?', req.params.id, function(err, rows, fields)
+  {
+    if(err){
+      console.log('Connection result error '+err);
+    }
+    else{
+      //console.log('no of records is '+rows.length);
+      res.set({'Content-Type':'text/json'});
+      res.send(JSON.stringify(rows));
+    }
+  });
+});
+
 //GET request that returns the detals of the most recent exams for each of a student's EPAs
-router.get('/users/:id/summary', function(req,res){
+router.get('/student/:id/summary', function(req,res){
   con.query('select H.* from `EPAHistory` H left outer join `EPAHistory` E on E.epaid=H.epaid and E.student=H.student and H.examdate<E.examdate where E.examdate is null and H.student=?', req.params.id, function(err, rows, fields)
   {
     if(err){
@@ -81,39 +110,10 @@ router.get('/adviser/:id/advisees', function(req,res){
   });
 });
 
-//GET request that returns information about a given user
-router.get('/users/:id', function(req,res){
-  con.query('SELECT fname, lname, year, email, permissions FROM Users WHERE uid = ?', req.params.id, function(err, rows, fields)
-  {
-    if(err){
-      console.log('Connection result error '+err);
-    }
-    else{
-      //console.log('no of records is '+rows.length);
-      res.set({'Content-Type':'text/json'});
-      res.send(JSON.stringify(rows));
-    }
-  });
-});
-
-//GET request that returns all comments for a given examination
-router.get('/comments/:hid', function(req, res){
-  con.query('SELECT body, hid FROM UpdateComments WHERE hid = ?', req.params.hid, function(err, rows, fields){
-    if(err){
-      console.log('Connection result error '+err);
-    }
-    else{
-      //console.log('no of records is '+rows.length);
-      res.set({'Content-Type':'text/json'});
-      res.send(JSON.stringify(rows));
-    }
-  });
-});
-
 //POST request that creates a new adviser in the database
 //Expects username, email, fname, lname parameters in the request body
 //Returns the new adviser's uid on success
-router.post('new/adviser', upload.array(), function(req, res){
+router.post('/new/adviser', upload.array(), function(req, res){
   var body = req.body;
   con.query('INSERT INTO Users (username, email, fname, lname, permissions, year) VALUES (?, ?, ?, ?, ?, ?)', [body.username, body.email, body.fname, body.lname, 1, 0], function(err, rows, fields){
     if(err){
@@ -136,7 +136,7 @@ router.post('new/adviser', upload.array(), function(req, res){
 //POST request that creates a new student in the database
 //Expects username, email, fname, lname, adviserid, year parameters in the request body
 //Returns the new student's uid on success
-router.post('new/student', upload.array(), function(req, res){
+router.post('/new/student', upload.array(), function(req, res){
   var body = req.body;
   con.query('INSERT INTO Users (username, email, fname, lname, permissions, adviserid, year) VALUES (?, ?, ?, ?, ?, ?, ?)', [body.username, body.email, body.fname, body.lname, 0, body.adviserid, body.year], function(err, rows, fields){
     if(err){
