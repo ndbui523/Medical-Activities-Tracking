@@ -182,15 +182,14 @@ angular.module('appControllers').controller('detailsCtrl', ['$scope','$routePara
   $scope.helpText = "This is placeholder text"
   $scope.displayHelp = function(event){
     if(event.target.id == "headerHelp"){
-      $scope.helpText = "This is the EPA details page for EPA" + $scope.epa + "." +
-        "\r\nThis section shows a general overview of student progress on an EPA.";
+      $scope.helpText = "The arrow is calculated by taking the difference between the most recent examination in EPA " +$scope.epa+" and the average of the last 10 examinations. If the difference is within a threshold of 0.4 then no difference is recorded and an even arrow will be displayed. Any differences above the threshold will show the corresponding up or down arrow."
     }
     if(event.target.id == "examHelp"){
       $scope.helpText = "This section contains a list and line graph of the 10 most recent grades that have affected the EPA evaluation for a student." +
-        "\r\nThe list items include the exam/rotation name and date, the evaluation and effect on EPA mastery level by that item, and a link to all comments for that item.";
+        "\r\n\r\nThe list items include the exam/rotation name and date, the evaluation and effect on EPA mastery level by that item, and a link to all comments for that item. The deltas are the trend between the test evaluation and the test evaluation directly before it.";
     }
     if(event.target.id == "checklistHelp"){
-      $scope.helpText = "This section details the checklist of activities that an entrustable student is expected to be able to perform under EPA" + $scope.epa + ".";
+      $scope.helpText = "This section details the checklist of activities that an entrustable student is expected to be able to perform under EPA " + $scope.epa + ".";
     }
   }
 }]);

@@ -120,7 +120,7 @@ angular.module('appControllers').controller('adviserCtrl', ['$scope', '$routePar
   $scope.displayHelp = function(event){
     if(event.target.id == "adviserHelp"){
       $scope.helpText = "This section allows advisers to see a list of their students." +
-      "\r\nClick on a field to sort by that field. Students with high numbers of improved or regressed EPAs will appear highlighted.";
+      "\r\n\r\nClick on a field to sort by that field. Students with high numbers of improved or regressed EPAs will appear highlighted. The number of improved and regressed is calculated by comparing the student's most recent examination to the average of the 10 most recent examinations for each EPA.\r\n\r\nClicking on a student's name will take you to the student's dashboard.";
     }
   }
 

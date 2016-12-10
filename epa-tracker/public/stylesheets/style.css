@@ -157,6 +157,10 @@ body{
   text-align: center;
 }
 
+.modal-body{
+  white-space: pre-line;
+}
+
 .flex-container{
   display: flex;
   flex-wrap: wrap;
