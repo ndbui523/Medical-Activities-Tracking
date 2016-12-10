@@ -43,7 +43,7 @@ angular.module('appControllers').controller('adviserCtrl', ['$scope', '$routePar
           element['regressed'] = 0;
           $http({
             method: 'GET',
-            url: '/users/'+element.uid.toString()+'/summary'
+            url: '/student/'+element.uid.toString()+'/summary'
           }).then(function successCallback(response) {
               $scope.currentEPAs = response.data;
               element['average'] = 0

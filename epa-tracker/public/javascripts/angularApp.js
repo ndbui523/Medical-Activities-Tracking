@@ -13,6 +13,10 @@ myApp.config(['$routeProvider', function($routeProvider) {
   .when('/unauthorized',{
     templateUrl : '/unauth/unauthorized.html',
   })
+  .when('/faq',{
+    templateUrl : '/faq/faq.html',
+    caseInsensitiveMatch: true
+  })
   .when('/:id', {
     templateUrl : '/dashboard/dashboard.html',
   })

@@ -36,7 +36,7 @@ angular.module('appControllers').controller('dashboardCtrl', ['$scope','$routePa
 
   $http({
     method: 'GET',
-    url: '/users/'+$routeParams.id+'/summary'
+    url: '/student/'+$routeParams.id+'/summary'
   }).then(function successCallback(response) {
       $scope.currentEPAs = response.data;
       $scope.graphData = {

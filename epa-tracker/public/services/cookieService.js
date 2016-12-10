@@ -39,11 +39,9 @@ angular.module('myApp').service('cookieService', ['$cookies','$http','$q', funct
            }).then(function successCallback(response) {
 
              var advisees = response.data;
-             //console.log(advisees);
              advisees.forEach(function(element){
                if(element.uid == userID){
                  deferred.resolve(true);
-
                }
              });
 
@@ -52,6 +50,9 @@ angular.module('myApp').service('cookieService', ['$cookies','$http','$q', funct
            }, function errorCallback(response){
              console.log("Error getting advisees for adviser "+cookieID)
            });
+         }
+         else if(response.data[0].permissions == 2){
+           deferred.resolve(true);
          }
          else{
            deferred.resolve(false);

@@ -5,6 +5,7 @@ angular.module('appControllers').controller('navbarCtrl', ['$scope','cookieServi
   $scope.logout = logout;
   $scope.gotoHome = gotoHome;
   $scope.goBack = goBack;
+  $scope.gotoFAQ = gotoFAQ;
   $scope.cookieID = cookieService.getCookie('user');
 
   function logout(){
@@ -37,7 +38,7 @@ angular.module('appControllers').controller('navbarCtrl', ['$scope','cookieServi
   }
 
   function gotoFAQ(){
-
+    $location.url('/faq');
   }
 
   function goBack(){
