@@ -87,7 +87,7 @@ angular.module('appControllers').controller('detailsCtrl', ['$scope','$routePara
     for (i = 0; i < tempres.length; i++){
       promises.push($http({
         method: 'GET',
-        url: '/tests/comments/'+tempres[i].hid,
+        url: '/comments/'+tempres[i].hid,
       }).then(function successCallback(response){
         return response.data
       },function errorCallback(error){
@@ -173,7 +173,7 @@ angular.module('appControllers').controller('detailsCtrl', ['$scope','$routePara
     else{
       $scope.commentText = '';
       testComments.forEach(function(element){
-        $scope.commentText += element.body + ' ';
+        $scope.commentText += element.body + '\r\n';
       });
     }
 

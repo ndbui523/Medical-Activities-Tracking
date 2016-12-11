@@ -52,7 +52,7 @@ router.get('/tests/:id/:epa', function(req,res){
 });
 
 //GET request that returns all comments for a given examination
-router.get('/tests/comments/:hid', function(req, res){
+router.get('/comments/:hid', function(req, res){
   con.query('SELECT body, hid FROM UpdateComments WHERE hid = ?', req.params.hid, function(err, rows, fields){
     if(err){
       console.log('Connection result error '+err);
