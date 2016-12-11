@@ -28,7 +28,7 @@ myApp.config(['$routeProvider', function($routeProvider) {
     templateUrl : '/adviser/adviser.html',
     caseInsensitiveMatch: true
   })
-  /*.otherwise({
-    redirectTo  : '/'
-  });*/
+  .otherwise({
+    redirectTo  : '/login'
+  });
 }]);

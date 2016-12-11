@@ -8,6 +8,8 @@ angular.module('appControllers').controller('navbarCtrl', ['$scope','cookieServi
   $scope.gotoFAQ = gotoFAQ;
   $scope.cookieID = cookieService.getCookie('user');
 
+  gotoHome();
+
   function logout(){
     cookieService.deleteCookie('user');
     $location.url('/login');
