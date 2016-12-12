@@ -1,97 +1,189 @@
+//API calls for RESTful interface
+//Contributions from Nick, Grant, Tommy, Matthew
+
 var mysql = require('mysql')
 var express = require('express');
 var router = express.Router();
 var fs = require('fs');
+var multer = require('multer');
+var upload = multer();
 
-var connection = mysql.createConnection({
-  host     : 'localhost',
-  user     : 'user',
-  password : 'password'
+var con = mysql.createConnection({
+  host: 'mydb.cs.unc.edu',
+  user: 'granthum',
+  password: 'CH@ngemenow99Please!granthum',
+  database: 'medtrackdb'
 });
 
-/* GET home page. */
+con.connect(function(err){
+  if(err){
+    console.log("Connection error with sql");
+    console.log(err);
+    return;
+  }
+  console.log("Connection established");
+  return;
+});
+
+//GET home page
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
-router.get('/details/:epa',function(req,res) {
+//GET request that returns a json object of the checklist items for mastery in a given EPA
+router.get('/epa/:epa', function(req,res) {
   var epaDetails = JSON.parse(fs.readFileSync('assets/epa-details-list.json', 'utf8'));
   res.json(epaDetails.EPAs[req.params.epa-1])
 });
 
-router.get('/users/1',function(req,res) {
-  res.json({
-    graphData:{
-      'Mastery1': [1,3,2,5],
-      'Mastery2': [4,13,11,7,6],
-      'Mastery3': [8,9,12],
-      'Mastery4': [10]
-    },
-    summaryDeltas:{
-      'Regressed': [11],
-      'Even': [1,2,3,4,5,6,7,10,12,13],
-      'Improved': [8,9]
+//GET request that returns details of the most recent 10 examinations for a given student and EPA
+router.get('/tests/:id/:epa', function(req,res){
+  con.query('SELECT * FROM EPAHistory  WHERE student = ? AND epaid = ? ORDER BY examdate desc LIMIT 10', [req.params.id,req.params.epa], function(err, rows, fields)
+  {
+    if(err){
+      console.log('Connection result error '+err);
+    }
+    else{
+      //console.log('no of records is '+rows.length);
+      res.set({'Content-Type':'text/json'});
+      res.send(JSON.stringify(rows));
     }
   });
 });
 
-/*router.get('/students/:id/deltas',function(req,res){
-res.json({
-  connection.connect();
-  connection.query('SELECT newval FROM EPAHistory WHERE id = ? SORT BY updated datetime LIMIT 2', req.params.id, function(err, rows, fields)
-  {
-          console.log('Connection result error '+err);
-          console.log('no of records is '+rows.length);
-          res.writeHead(200, { 'Content-Type': 'application/json'});
-          res.end(JSON.stringify(rows));
+//GET request that returns all comments for a given examination
+router.get('/comments/:hid', function(req, res){
+  con.query('SELECT body, hid FROM UpdateComments WHERE hid = ?', req.params.hid, function(err, rows, fields){
+    if(err){
+      console.log('Connection result error '+err);
+    }
+    else{
+      //console.log('no of records is '+rows.length);
+      res.set({'Content-Type':'text/json'});
+      res.send(JSON.stringify(rows));
+    }
   });
 });
 
-router.get('/students/:id/summary',function(req,res){
-res.json({
-  connection.connect();
-  connection.query('SELECT ..., req.params.id, function(err, rows, fields)
-  //GROUP BY and FIND IN SET (group by epa #, find most recent 1 in set, return most recent value for each) !TODO
+//GET request that returns information about a given user
+router.get('/users/:id', function(req,res){
+  con.query('SELECT fname, lname, year, email, permissions FROM Users WHERE uid = ?', req.params.id, function(err, rows, fields)
   {
-          console.log('Connection result error '+err);
-          console.log('no of records is '+rows.length);
-          res.writeHead(200, { 'Content-Type': 'application/json'});
-          res.end(JSON.stringify(rows));
+    if(err){
+      console.log('Connection result error '+err);
+    }
+    else{
+      //console.log('no of records is '+rows.length);
+      res.set({'Content-Type':'text/json'});
+      res.send(JSON.stringify(rows));
+    }
   });
 });
 
-router.get('/advisers/:id',function(req,res){
-  connection.connect();
-  connection.query('SELECT student FROM advisees WHERE advisor = ?', req.params.id, function(err, rows, fields)
+//GET request that returns the detals of the most recent exams for each of a student's EPAs
+router.get('/student/:id/summary', function(req,res){
+  con.query('select H.* from `EPAHistory` H left outer join `EPAHistory` E on E.epaid=H.epaid and E.student=H.student and H.examdate<E.examdate where E.examdate is null and H.student=?', req.params.id, function(err, rows, fields)
   {
-          console.log('Connection result error '+err);
-          console.log('no of records is '+rows.length);
-          res.writeHead(200, { 'Content-Type': 'application/json'});
-          res.end(JSON.stringify(rows));
+    if(err){
+      console.log('Connection result error '+err);
+    }
+    else{
+      //console.log('no of records is '+rows.length);
+      res.set({'Content-Type':'text/json'});
+      res.send(JSON.stringify(rows));
+    }
   });
 });
 
-router.get('/tests/:id/:epa',function(req,res){
-  connection.connect();
-  connection.query('SELECT title, uploaded, newval  FROM EPAHistory WHERE student = ? AND epaid = ? SORT BY updated datetime LIMIT 10', req.params.id, req.params.epa function(err, rows, fields)
+//GET request that returns all advisees of a given adviser
+router.get('/adviser/:id/advisees', function(req,res){
+  con.query('SELECT fname, lname, email, uid, year FROM Users u WHERE u.adviserid = ?', req.params.id, function(err, rows, fields)
   {
-          console.log('Connection result error '+err);
-          console.log('no of records is '+rows.length);
-          res.writeHead(200, { 'Content-Type': 'application/json'});
-          res.end(JSON.stringify(rows));
+    if(err){
+      console.log('Connection result error '+err);
+    }
+    else{
+      //console.log('no of records is '+rows.length);
+      res.set({'Content-Type':'text/json'});
+      res.send(JSON.stringify(rows));
+    }
   });
 });
 
-router.get('/comments/:id',function(req,res){
-  connection.connect();
-  connection.query('SELECT comment FROM EPAHistory WHERE id = ? SORT BY updated datetime LIMIT 2', req.params.id, function(err, rows, fields)
-  {
-          console.log('Connection result error '+err);
-          console.log('no of records is '+rows.length);
-          res.writeHead(200, { 'Content-Type': 'application/json'});
-          res.end(JSON.stringify(rows));
+//POST request that creates a new adviser in the database
+//Expects username, email, fname, lname parameters in the request body
+//Returns the new adviser's uid on success
+router.post('/new/adviser', upload.array(), function(req, res){
+  var body = req.body;
+  con.query('INSERT INTO Users (username, email, fname, lname, permissions, year) VALUES (?, ?, ?, ?, ?, ?)', [body.username, body.email, body.fname, body.lname, 1, 0], function(err, rows, fields){
+    if(err){
+      res.send("Fail1, " + err);
+    }
+    else{
+      con.query('SELECT uid FROM Users WHERE username=?', [body.username], function(err2, rows2, fields2){
+        if(err2){
+          res.send("Fail2, " + err2)
+        }
+        else{
+          var uid = JSON.stringify(rows2)
+          res.send(uid);
+        }
+      });
+    }
   });
 });
-*/
+
+//POST request that creates a new student in the database
+//Expects username, email, fname, lname, adviserid, year parameters in the request body
+//Returns the new student's uid on success
+router.post('/new/student', upload.array(), function(req, res){
+  var body = req.body;
+  con.query('INSERT INTO Users (username, email, fname, lname, permissions, adviserid, year) VALUES (?, ?, ?, ?, ?, ?, ?)', [body.username, body.email, body.fname, body.lname, 0, body.adviserid, body.year], function(err, rows, fields){
+    if(err){
+      res.send("Fail1, " + err);
+    }
+    else{
+      con.query('SELECT uid FROM Users WHERE username=?', [body.username], function(err2, rows2, fields2){
+        if(err2){
+          res.send("Fail2, " + err2)
+        }
+        else{
+          var uid = JSON.stringify(rows2)
+          res.send(uid);
+        }
+      });
+    }
+  });
+});
+
+//POST request that adds a new examination for a specified student and EPA
+//Expects student, epaid, title, examdate, newval, comments parameters in the request body
+//Returns 'Success' on success
+router.post('/new/exam', upload.array(), function(req, res){
+  var body = req.body;
+  con.query('INSERT INTO EPAHistory (student, epaid, title, examdate, newval) VALUES (?, ?, ?, ?, ?)', [body.student, body.epaid, body.title, body.examdate, body.newval], function(err, rows, fields){
+    if(err){
+      res.send("Fail1, " + err);
+    }
+    else{
+      con.query('SELECT hid FROM EPAHistory WHERE student=? AND epaid=? AND title=? AND examdate=? AND newval=?', [body.student, body.epaid, body.title, body.examdate, body.newval], function(err2, rows2, fields2){
+        if(err){
+          res.send("Fail2, " + err2);
+        }
+        else{
+          var hid = (rows2[0].hid);
+          con.query('INSERT INTO UpdateComments (hid, body) VALUES (?, ?)', [hid, body.comments], function(err3, rows3, fields3){
+            if(err){
+              res.send("Fail3, " + err3);
+            }
+            else{
+              res.send("Success");
+            }
+          })
+        }
+      });
+    }
+  });
+});
 
 module.exports = router;
