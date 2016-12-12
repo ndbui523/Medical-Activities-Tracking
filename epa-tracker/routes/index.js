@@ -171,7 +171,7 @@ router.post('/new/exam', upload.array(), function(req, res){
           res.send("Fail2, " + err2);
         }
         else{
-          var hid = JSON.stringify(rows2);
+          var hid = (rows2[0].hid);
           con.query('INSERT INTO UpdateComments (hid, body) VALUES (?, ?)', [hid, body.comments], function(err3, rows3, fields3){
             if(err){
               res.send("Fail3, " + err3);
